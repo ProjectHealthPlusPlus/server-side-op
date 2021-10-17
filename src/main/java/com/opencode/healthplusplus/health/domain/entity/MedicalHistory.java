@@ -1,0 +1,32 @@
+package com.opencode.healthplusplus.health.domain.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.opencode.healthplusplus.shared.domain.model.AuditModel;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "medical_histories")
+public class MedicalHistory extends AuditModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "patient_id", nullable = false)
+    @JsonIgnore
+    private Patient patient;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "clinic_id", nullable = false)
+    @JsonIgnore
+    private Clinic clinic;
+
+    @OneToMany(mappedBy = "medicalHistory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Diagnostic> diagnostics;
+}
