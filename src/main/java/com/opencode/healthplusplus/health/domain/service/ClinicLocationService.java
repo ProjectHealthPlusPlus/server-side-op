@@ -10,6 +10,7 @@ import java.util.List;
 public interface ClinicLocationService {
     List<ClinicLocation> getAll();
     Page<ClinicLocation> getAll(Pageable pageable);
+    ClinicLocation getById(Long clinicLocationId);
     ClinicLocation create(ClinicLocation clinicLocation);
     ClinicLocation update(Long clinicLocationId, ClinicLocation request);
     ResponseEntity<?> delete(Long clinicLocationId);
