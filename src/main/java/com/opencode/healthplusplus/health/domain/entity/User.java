@@ -4,23 +4,23 @@ import com.opencode.healthplusplus.shared.domain.model.AuditModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User extends AuditModel {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
 
     @NotNull
-    @Size(max = 8)
+    @Digits(integer = 8, fraction = 0)
     @Column(unique = true)
     private int dni;
 
@@ -33,5 +33,6 @@ public abstract class User extends AuditModel {
     private String lastName;
 
     @NotNull
+    @Digits(integer = 3, fraction = 0)
     private int age;
 }

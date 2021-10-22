@@ -10,12 +10,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "patients")
+@Entity(name = "patients")
 public class Patient extends User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @NotNull
     @Size(max = 100)
