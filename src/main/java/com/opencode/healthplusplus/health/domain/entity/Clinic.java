@@ -10,15 +10,11 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "clinics")
+@Entity(name = "clinics")
 public class Clinic extends User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "clinic_location_id", nullable = false)
+    @JoinColumn(name = "clinic_locations_id", nullable = false)
     @JsonIgnore
     private ClinicLocation clinicLocation;
 

@@ -8,12 +8,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "doctors")
+@Entity(name = "doctors")
 public class Doctor extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @ManyToMany(fetch = FetchType.LAZY
             , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
