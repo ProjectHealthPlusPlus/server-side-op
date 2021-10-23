@@ -2,6 +2,12 @@ package com.opencode.healthplusplus.health.controller;
 
 import com.opencode.healthplusplus.health.domain.entity.User;
 import com.opencode.healthplusplus.health.domain.service.UserService;
+import com.opencode.healthplusplus.health.mapping.UserMapper;
+import com.opencode.healthplusplus.health.resource.CreateUserResource;
+import com.opencode.healthplusplus.health.resource.UpdateUserResource;
+import com.opencode.healthplusplus.health.resource.UserResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,31 +15,38 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper mapper;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserMapper mapper) {
         this.userService = userService;
+        this.mapper = mapper;
     }
 
-    @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return userService.getAll();
+    @GetMapping
+    public Page<UserResource> getAllUsers(Pageable pageable) {
+        return mapper.modelListToPage(userService.getAll(), pageable);
     }
 
-    @PostMapping("/users")
-    public User createUser(@Valid @RequestBody User user) {
-        return userService.create(user);
+    @GetMapping("{userId}")
+    public UserResource getUserById(@PathVariable Long userId) {
+        return mapper.toResource(userService.getById(userId));
     }
 
-    @PutMapping("/users/{userId}")
-    public User updateUser(@PathVariable Long userId, @Valid @RequestBody User request) {
-        return userService.update(userId, request);
+    @PostMapping
+    public UserResource createUser(@RequestBody CreateUserResource request) {
+        return mapper.toResource(userService.create(mapper.toModel(request)));
     }
 
-    @DeleteMapping("/users/{userId}")
+    @PutMapping("{userId}")
+    public UserResource updateUser(@PathVariable Long userId, @RequestBody UpdateUserResource request) {
+        return mapper.toResource(userService.update(userId,mapper.toModel(request)));
+    }
+
+    @DeleteMapping("{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
         return userService.delete(userId);
     }

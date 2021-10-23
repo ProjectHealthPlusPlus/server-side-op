@@ -19,4 +19,9 @@ public class MappingConfiguration {
     public  SpecialtyMapper specialtyMapper() {
         return new SpecialtyMapper();
     }
+
+    @Bean
+    public UserMapper userMapper() {
+        return new UserMapper();
+    }
 }

@@ -10,7 +10,8 @@ import java.util.List;
 public interface UserService {
     List<User> getAll();
     Page<User> getAll(Pageable pageable);
-    User create(User user);
+    User getById(Long userId);
+    User create(User request);
     User update(Long userId, User request);
     ResponseEntity<?> delete(Long userId);
 }

@@ -28,4 +28,6 @@ public class Clinic extends User{
 
     @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MedicalHistory> medicalHistories;
+
+
 }
