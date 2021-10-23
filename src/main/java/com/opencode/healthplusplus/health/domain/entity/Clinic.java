@@ -1,15 +1,16 @@
 package com.opencode.healthplusplus.health.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.print.Doc;
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@With
 @Entity(name = "clinics")
 public class Clinic extends User{
 

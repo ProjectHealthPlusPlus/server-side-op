@@ -4,7 +4,6 @@ import com.opencode.healthplusplus.health.domain.entity.User;
 import com.opencode.healthplusplus.health.domain.persistence.UserRepository;
 import com.opencode.healthplusplus.health.domain.service.UserService;
 import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
