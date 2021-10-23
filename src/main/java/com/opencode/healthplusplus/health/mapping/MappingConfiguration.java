@@ -9,4 +9,9 @@ public class MappingConfiguration {
     public ClinicLocationMapper clinicLocationMapper() {
         return new ClinicLocationMapper();
     }
+
+    @Bean
+    public  ClinicMapper clinicMapper() {
+        return new ClinicMapper();
+    }
 }

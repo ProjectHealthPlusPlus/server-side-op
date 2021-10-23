@@ -10,7 +10,8 @@ import java.util.List;
 public interface ClinicService {
     List<Clinic> getAll();
     Page<Clinic> getAll(Pageable pageable);
-    Clinic create(Clinic clinic);
+    Clinic getById(Long clinicId);
+    Clinic create(Clinic request);
     Clinic update(Long clinicId, Clinic request);
     ResponseEntity<?> delete(Long clinicId);
 }

@@ -2,40 +2,50 @@ package com.opencode.healthplusplus.health.controller;
 
 import com.opencode.healthplusplus.health.domain.entity.Clinic;
 import com.opencode.healthplusplus.health.domain.service.ClinicService;
+import com.opencode.healthplusplus.health.mapping.ClinicMapper;
+import com.opencode.healthplusplus.health.resource.ClinicResource;
+import com.opencode.healthplusplus.health.resource.CreateClinicResource;
+import com.opencode.healthplusplus.health.resource.UpdateClinicResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/clinics")
 public class ClinicController {
 
     private final ClinicService clinicService;
+    private final ClinicMapper mapper;
 
-    public ClinicController(ClinicService clinicService) {
+    public ClinicController(ClinicService clinicService, ClinicMapper mapper) {
         this.clinicService = clinicService;
+        this.mapper = mapper;
     }
 
-    @GetMapping("/clinics")
-    public List<Clinic> getAll() {
-        return clinicService.getAll();
+    @GetMapping
+    public Page<ClinicResource> getAllClinics(Pageable pageable) {
+        return mapper.modelListToPage(clinicService.getAll(), pageable);
     }
 
-    @PostMapping("/clinics")
-    public Clinic create(@Valid @RequestBody Clinic clinic) {
-        return clinicService.create(clinic);
+    @GetMapping("{clinicId}")
+    public ClinicResource getClinicById(@PathVariable Long clinicId) {
+        return mapper.toResource(clinicService.getById(clinicId));
     }
 
-    @PutMapping("/clinics/{clinicId}")
-    public Clinic update(@PathVariable Long clinicId, @Valid @RequestBody Clinic request) {
-        return clinicService.update(clinicId, request);
+    @PostMapping
+    public ClinicResource createClinic(@RequestBody CreateClinicResource request) {
+        return mapper.toResource(clinicService.create(mapper.toModel(request)));
     }
 
-    @DeleteMapping("/clinics/{clinicId}")
+    @PutMapping("{clinicId}")
+    public ClinicResource updateClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.update(clinicId, mapper.toModel(request)));
+    }
+
+    @DeleteMapping("{clinicId}")
     public ResponseEntity<?> delete(@PathVariable Long clinicId){
         return clinicService.delete(clinicId);
     }

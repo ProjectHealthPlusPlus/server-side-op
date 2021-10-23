@@ -41,12 +41,12 @@ public class ClinicLocationController {
         return mapper.toResource(clinicLocationService.create(mapper.toModel(request)));
     }
 
-    @PutMapping("/{clinicLocationId}")
+    @PutMapping("{clinicLocationId}")
     public ClinicLocationResource updateClinicLocation(@PathVariable Long clinicLocationId, @RequestBody UpdateClinicLocationResource request) {
         return mapper.toResource(clinicLocationService.update(clinicLocationId, mapper.toModel(request)));
     }
 
-    @DeleteMapping("/{clinicLocationId}")
+    @DeleteMapping("{clinicLocationId}")
     public ResponseEntity<?> deleteClinicLocation(@PathVariable Long clinicLocationId) {
         return clinicLocationService.delete(clinicLocationId);
     }
