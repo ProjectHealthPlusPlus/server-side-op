@@ -1,14 +1,16 @@
 package com.opencode.healthplusplus.health.domain.entity;
 
 import com.opencode.healthplusplus.shared.domain.model.AuditModel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@With
 @Entity
 @Table(name = "appointment_details")
 public class AppointmentDetails extends AuditModel {

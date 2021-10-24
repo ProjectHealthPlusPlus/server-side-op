@@ -1,14 +1,16 @@
 package com.opencode.healthplusplus.health.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@With
 @Entity
 @Table(name = "appointments")
 public class Appointment {
