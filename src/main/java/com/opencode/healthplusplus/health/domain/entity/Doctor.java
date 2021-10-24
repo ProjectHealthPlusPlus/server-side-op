@@ -1,13 +1,15 @@
 package com.opencode.healthplusplus.health.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@With
 @Entity(name = "doctors")
 public class Doctor extends User {
 
