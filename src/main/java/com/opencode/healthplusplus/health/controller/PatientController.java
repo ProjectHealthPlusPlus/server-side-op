@@ -36,13 +36,8 @@ public class PatientController {
         return mapper.toResource(patientService.getById(patientId));
     }
 
-//    @PostMapping
-//    public Patient createPatient(@Valid @RequestBody Patient request) {
-//        return patientService.create(request);
-//    }
-
     @PostMapping
-    public PatientResource createUser(@Valid @RequestBody CreatePatientResource request) {
+    public PatientResource createUser(@RequestBody CreatePatientResource request) {
         return mapper.toResource(patientService.create(mapper.toModel(request)));
     }
 
