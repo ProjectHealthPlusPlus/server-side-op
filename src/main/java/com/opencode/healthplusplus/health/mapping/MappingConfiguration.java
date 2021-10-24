@@ -34,4 +34,14 @@ public class MappingConfiguration {
     public DoctorMapper doctorMapper() {
         return new DoctorMapper();
     }
+
+    @Bean
+    public AppointmentMapper appointmentMapper() {
+        return new AppointmentMapper();
+    }
+
+    @Bean
+    public AppointmentDetailsMapper appointmentDetailsMapper() {
+        return new AppointmentDetailsMapper();
+    }
 }
