@@ -23,7 +23,6 @@ public class User extends AuditModel {
     protected Long id;
 
     @NotNull
-    @NotBlank
     @Digits(integer = 8, fraction = 0)
     @Column(unique = true)
     private int dni;
@@ -39,7 +38,6 @@ public class User extends AuditModel {
     private String lastName;
 
     @NotNull
-    @NotBlank
     @Digits(integer = 3, fraction = 0)
     private int age;
 }

@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 public class CreateUserResource {
 
     @NotNull
-    @NotBlank
     private int dni;
 
     @NotNull

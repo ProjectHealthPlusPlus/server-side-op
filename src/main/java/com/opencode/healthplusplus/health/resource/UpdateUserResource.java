@@ -15,7 +15,6 @@ public class UpdateUserResource {
     protected Long id;
 
     @NotNull
-    @NotBlank
     private int dni;
 
     @NotNull

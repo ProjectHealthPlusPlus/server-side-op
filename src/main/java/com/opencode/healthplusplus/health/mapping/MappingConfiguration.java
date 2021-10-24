@@ -24,4 +24,9 @@ public class MappingConfiguration {
     public UserMapper userMapper() {
         return new UserMapper();
     }
+
+    @Bean
+    public PatientMapper patientMapper() {
+        return new PatientMapper();
+    }
 }
