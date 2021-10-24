@@ -50,4 +50,9 @@ public class MappingConfiguration {
         return new MedicalHistoryMapper();
     }
 
+    @Bean
+    public DiagnosticMapper diagnosticMapper() {
+        return new DiagnosticMapper();
+    }
+
 }
