@@ -14,7 +14,7 @@ import java.util.List;
 @Entity(name = "clinics")
 public class Clinic extends User{
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "clinic_locations_id", nullable = false)
     @JsonIgnore
     private ClinicLocation clinicLocation;

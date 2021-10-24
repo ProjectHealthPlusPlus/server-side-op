@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PatientResource {
+public class PatientResource extends UserResource{
     private String address;
 }

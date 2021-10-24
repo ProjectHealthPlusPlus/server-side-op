@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Getter
 @Setter
@@ -31,11 +30,4 @@ public class Specialty {
     @Lob
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "specialties")
-    private List<Doctor> doctors;
-
-    @OneToMany(mappedBy = "specialty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Diagnostic> diagnostics;
 }

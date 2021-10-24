@@ -18,7 +18,4 @@ public class Patient extends User{
     @NotNull
     @Size(max = 100)
     private String address;
-
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<MedicalHistory> medicalHistories;
 }

@@ -26,7 +26,6 @@ public class CreateUserResource {
     private String lastName;
 
     @NotNull
-    @NotBlank
     @Digits(integer = 3, fraction = 0)
     private int age;
 }

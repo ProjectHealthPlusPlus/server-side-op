@@ -28,7 +28,6 @@ public class UpdateUserResource {
     private String lastName;
 
     @NotNull
-    @NotBlank
     @Digits(integer = 3, fraction = 0)
     private int age;
 }

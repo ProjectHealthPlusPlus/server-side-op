@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CreateClinicResource {
+public class CreateClinicResource extends UserResource{
     private ClinicLocation clinicLocation;
     private List<Doctor> doctors;
     private List<MedicalHistory> medicalHistories;

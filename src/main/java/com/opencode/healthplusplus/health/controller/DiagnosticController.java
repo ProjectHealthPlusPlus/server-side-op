@@ -48,17 +48,17 @@ public class DiagnosticController {
     }
 
     @PostMapping("clinics/{clinicId}/medicalHistories/{medicalHistoryId}/diagnostics/{diagnosticId}")
-    public DiagnosticResource createMedicalHistory(@PathVariable Long medicalHistoryId, @RequestBody CreateDiagnosticResource request) {
+    public DiagnosticResource createDiagnostic(@PathVariable Long medicalHistoryId, @RequestBody CreateDiagnosticResource request) {
         return mapper.toResource(diagnosticService.create(medicalHistoryId, mapper.toModel(request)));
     }
 
     @PutMapping("clinics/{clinicId}/medicalHistories/{medicalHistoryId}/diagnostics/{diagnosticId}")
-    public DiagnosticResource updateMedicalHistory(@PathVariable Long medicalHistoryId, @PathVariable Long diagnosticId, @RequestBody UpdateDiagnosticResource request) {
+    public DiagnosticResource updateDiagnostic(@PathVariable Long medicalHistoryId, @PathVariable Long diagnosticId, @RequestBody UpdateDiagnosticResource request) {
         return mapper.toResource(diagnosticService.update(medicalHistoryId, diagnosticId, mapper.toModel(request)));
     }
 
     @DeleteMapping("clinics/{clinicId}/medicalHistories/{medicalHistoryId}/diagnostics/{diagnosticId}")
-    public ResponseEntity<?> deleteMedicalHistory(@PathVariable Long medicalHistoryId, @PathVariable Long diagnosticId) {
+    public ResponseEntity<?> deleteDiagnostic(@PathVariable Long medicalHistoryId, @PathVariable Long diagnosticId) {
         return diagnosticService.delete(medicalHistoryId, diagnosticId);
     }
 

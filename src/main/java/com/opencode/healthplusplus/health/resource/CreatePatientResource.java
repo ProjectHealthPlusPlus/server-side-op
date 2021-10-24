@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class CreatePatientResource {
+public class CreatePatientResource extends UserResource{
     @NotNull
     @Size(max = 100)
     private String address;
