@@ -44,4 +44,15 @@ public class MappingConfiguration {
     public AppointmentDetailsMapper appointmentDetailsMapper() {
         return new AppointmentDetailsMapper();
     }
+
+    @Bean
+    public MedicalHistoryMapper medicalHistoryMapper() {
+        return new MedicalHistoryMapper();
+    }
+
+    @Bean
+    public DiagnosticMapper diagnosticMapper() {
+        return new DiagnosticMapper();
+    }
+
 }
