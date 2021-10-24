@@ -4,20 +4,27 @@ import com.opencode.healthplusplus.health.domain.entity.User;
 import com.opencode.healthplusplus.health.domain.persistence.UserRepository;
 import com.opencode.healthplusplus.health.domain.service.UserService;
 import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
+import com.opencode.healthplusplus.shared.exception.ResourceValidationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final String ENTITY = "User";
     private final UserRepository userRepository;
+    private final Validator validator;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, Validator validator) {
         this.userRepository = userRepository;
+        this.validator = validator;
     }
 
     @Override
@@ -31,19 +38,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
-        return userRepository.save(user);
+    public User getById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, userId));
+    }
+
+    @Override
+    public User create(User request) {
+        Set<ConstraintViolation<User>> violations = validator.validate(request);
+
+        if(!violations.isEmpty())
+            throw new ResourceValidationException(ENTITY, violations);
+
+        return userRepository.save(request);
     }
 
     @Override
     public User update(Long userId, User request) {
-        return userRepository.findById(userId).map(user -> {
-           user.setAge(request.getAge());
-            user.setName(request.getName());
-            user.setLastName(request.getLastName());
-            user.setDni(request.getDni());
-            return userRepository.save(user);
-        }).orElseThrow(() -> new ResourceNotFoundException("User", userId));
+        Set<ConstraintViolation<User>> violations = validator.validate(request);
+
+        if(!violations.isEmpty())
+            throw new ResourceValidationException(ENTITY, violations);
+
+        return userRepository.findById(userId).map(user ->
+                userRepository.save(
+                        user.withName(request.getName())
+                                .withLastName((request.getLastName()))
+                                .withDni(request.getDni())
+                                .withAge(request.getAge())))
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, userId));
     }
 
     @Override
@@ -51,6 +74,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId).map(user -> {
             userRepository.delete(user);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("USer", userId));
+        }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, userId));
     }
 }

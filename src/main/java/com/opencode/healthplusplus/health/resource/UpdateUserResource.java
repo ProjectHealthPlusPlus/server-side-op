@@ -1,9 +1,8 @@
-package com.opencode.healthplusplus.health.domain.entity;
+package com.opencode.healthplusplus.health.resource;
 
-import com.opencode.healthplusplus.shared.domain.model.AuditModel;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -11,20 +10,11 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@With
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public class User extends AuditModel {
+public class UpdateUserResource {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @NotNull
-    @Digits(integer = 8, fraction = 0)
-    @Column(unique = true)
     private int dni;
 
     @NotNull
@@ -38,6 +28,7 @@ public class User extends AuditModel {
     private String lastName;
 
     @NotNull
+    @NotBlank
     @Digits(integer = 3, fraction = 0)
     private int age;
 }
