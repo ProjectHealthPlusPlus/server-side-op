@@ -2,14 +2,16 @@ package com.opencode.healthplusplus.health.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencode.healthplusplus.shared.domain.model.AuditModel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@With
 @Entity
 @Table(name = "medical_histories")
 public class MedicalHistory extends AuditModel {
