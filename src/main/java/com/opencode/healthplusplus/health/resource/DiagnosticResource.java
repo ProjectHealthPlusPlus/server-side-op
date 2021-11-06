@@ -1,6 +1,6 @@
 package com.opencode.healthplusplus.health.resource;
 
-import com.opencode.healthplusplus.health.domain.entity.Specialty;
+import com.opencode.healthplusplus.profile.domain.entity.Specialty;
 import lombok.Getter;
 import lombok.Setter;
 

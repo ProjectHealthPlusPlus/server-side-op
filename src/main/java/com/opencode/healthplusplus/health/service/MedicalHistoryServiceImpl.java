@@ -1,9 +1,9 @@
 package com.opencode.healthplusplus.health.service;
 
 import com.opencode.healthplusplus.health.domain.entity.MedicalHistory;
-import com.opencode.healthplusplus.health.domain.persistence.ClinicRepository;
+import com.opencode.healthplusplus.meeting.domain.persistence.ClinicRepository;
 import com.opencode.healthplusplus.health.domain.persistence.MedicalHistoryRepository;
-import com.opencode.healthplusplus.health.domain.persistence.PatientRepository;
+import com.opencode.healthplusplus.profile.domain.persistence.PatientRepository;
 import com.opencode.healthplusplus.health.domain.service.MedicalHistoryService;
 import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
 import com.opencode.healthplusplus.shared.exception.ResourceValidationException;
