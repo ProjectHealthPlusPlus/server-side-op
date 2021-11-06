@@ -1,6 +1,7 @@
 package com.opencode.healthplusplus.health.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.opencode.healthplusplus.profile.domain.entity.Specialty;
 import com.opencode.healthplusplus.shared.domain.model.AuditModel;
 import lombok.*;
 

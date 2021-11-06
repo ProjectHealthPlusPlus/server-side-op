@@ -1,7 +1,7 @@
 package com.opencode.healthplusplus.health.resource;
 
 import com.opencode.healthplusplus.health.domain.entity.Diagnostic;
-import com.opencode.healthplusplus.health.domain.entity.Patient;
+import com.opencode.healthplusplus.profile.domain.entity.Patient;
 import lombok.Getter;
 import lombok.Setter;
 
