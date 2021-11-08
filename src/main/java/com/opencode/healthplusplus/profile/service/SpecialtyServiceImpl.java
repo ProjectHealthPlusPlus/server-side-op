@@ -1,7 +1,7 @@
 package com.opencode.healthplusplus.profile.service;
 
 import com.opencode.healthplusplus.profile.domain.entity.Specialty;
-import com.opencode.healthplusplus.profile.domain.entity.SpecialtyRepository;
+import com.opencode.healthplusplus.profile.domain.persistence.SpecialtyRepository;
 import com.opencode.healthplusplus.profile.domain.service.SpecialtyService;
 import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
 import com.opencode.healthplusplus.shared.exception.ResourceValidationException;
