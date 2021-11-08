@@ -29,8 +29,8 @@ public class SpecialtyServiceTStepDefinitions {
     private String endPointPath;
     private ResponseEntity<String> responseEntity;
 
-    @Given("The Endpoint {string} is available")
-    public void theEndpointIsAvailable(String endPointPath) {
+    @Given("The Specialty Endpoint {string} is available")
+    public void theSpecialtyEndpointIsAvailable(String endPointPath) {
         this.endPointPath = String.format(endPointPath, randomServerPort);
     }
 
@@ -45,8 +45,8 @@ public class SpecialtyServiceTStepDefinitions {
         responseEntity = testRestTemplate.postForEntity(endPointPath, request, String.class);
     }
 
-    @Then("A Response with Status {int} is received")
-    public void aResponseWithStatusIsReceived(int expectedStatusCode) {
+    @Then("A Response with Status {int} is received for Specialty")
+    public void aResponseWithStatusIsReceivedForSpecialty(int expectedStatusCode) {
         int actualStatusCode = responseEntity.getStatusCodeValue();
         assertThat(expectedStatusCode).isEqualTo(actualStatusCode);
     }
@@ -80,8 +80,8 @@ public class SpecialtyServiceTStepDefinitions {
         responseEntity = testRestTemplate.postForEntity(endPointPath, request, String.class);
     }
 
-    @And("A Message with values {string} is include in Response Body")
-    public void aMessageWithValuesIsIncludeInResponseBody(String expectedMessage) {
+    @And("A Message with values {string} is include in Response Body for Specialty")
+    public void aMessageWithValuesIsIncludeInResponseBodyForSpecialty(String expectedMessage) {
         String responseBody = responseEntity.getBody();
         assertThat(responseBody).contains(expectedMessage);
     }

@@ -50,6 +50,14 @@ public class SpecialtyServiceImpl implements SpecialtyService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
+
+        // Name uniqueness validation
+
+        Specialty specialtyWithName = specialtyRepository.findByName(request.getName());
+
+        if(specialtyWithName != null)
+            throw new ResourceValidationException(ENTITY, "A Specialty with the same name exist");
+
         return specialtyRepository.save(request);
     }
 
@@ -59,6 +67,13 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
+
+        // Name uniqueness validation
+
+        Specialty specialtyWithName = specialtyRepository.findByName(request.getName());
+
+        if(specialtyWithName != null && specialtyWithName.getId() != request.getId())
+            throw new ResourceValidationException(ENTITY, "A Specialty with the same name exist");
 
         return specialtyRepository.findById(specialtyId).map(specialty ->
                 specialtyRepository.save(
