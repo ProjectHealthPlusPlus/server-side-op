@@ -10,6 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class CreateDoctorResource extends UserResource{
-    private List<Specialty> specialties;
-    private List<Clinic> clinics;
+    private List<Long> specialtiesId;
+    private List<Long> clinicsId;
 }

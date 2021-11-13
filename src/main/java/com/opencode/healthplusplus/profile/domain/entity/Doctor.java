@@ -4,6 +4,7 @@ import com.opencode.healthplusplus.meeting.domain.entity.Clinic;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -11,7 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @With
-@Entity(name = "doctors")
+@Entity
+@Table(name = "doctors")
 public class Doctor extends User {
 
     @ManyToMany(fetch = FetchType.LAZY
@@ -25,4 +27,20 @@ public class Doctor extends User {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "doctors")
     private List<Clinic> clinics;
+
+
+
+    public void addClinic(Clinic clinic) {
+        clinics.add(clinic);
+    }
+    public void removeClinic(Clinic clinic) {
+        clinics.remove(clinic);
+    }
+    public void addSpecialty(Specialty specialty) {
+        specialties.add(specialty);
+    }
+    public void removeSpecialty(Specialty specialty) {
+        specialties.remove(specialty);
+    }
+
 }
