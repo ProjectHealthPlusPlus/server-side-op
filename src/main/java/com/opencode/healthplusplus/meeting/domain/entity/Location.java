@@ -13,8 +13,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @With
 @Entity
-@Table(name = "clinic_locations")
-public class ClinicLocation {
+@Table(name = "locations")
+public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +27,7 @@ public class ClinicLocation {
     @NotNull
     @NotBlank
     @Size(max = 20)
-    private String capitalCity;
+    private String city;
 
     @NotNull
     @NotBlank

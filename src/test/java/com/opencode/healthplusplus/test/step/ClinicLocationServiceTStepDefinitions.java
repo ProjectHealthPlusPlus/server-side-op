@@ -31,12 +31,12 @@ public class ClinicLocationServiceTStepDefinitions {
     private String endPointPath;
     private ResponseEntity<String> responseEntity;
 
-    @Given("The ClinicLocation Endpoint {string} is available")
+    @Given("The Location Endpoint {string} is available")
     public void theClinicLocationEndpointIsAvailable(String endPointPath) {
         this.endPointPath = String.format(endPointPath, randomServerPort);
     }
 
-    @When("A ClinicLocation Post Request is sent with values {string}, {string}, {string}")
+    @When("A Location Post Request is sent with values {string}, {string}, {string}")
     public void aClinicLocationPostRequestIsSentWithValues(String address, String capitalCity, String country) {
         CreateClinicLocationResource resource = new CreateClinicLocationResource()
                 .withAddress(address)
@@ -48,13 +48,13 @@ public class ClinicLocationServiceTStepDefinitions {
         responseEntity = testRestTemplate.postForEntity(endPointPath, request, String.class);
     }
 
-    @Then("A Response with Status {int} is received for ClinicLocation")
+    @Then("A Response with Status {int} is received for Location")
     public void aResponseWithStatusIsReceivedForClinicLocation(int expectedStatusCode) {
         int actualStatusCode = responseEntity.getStatusCodeValue();
         assertThat(expectedStatusCode).isEqualTo(actualStatusCode);
     }
 
-    @And("A ClinicLocation Resource with values {string}, {string}, {string} is included in Response Body")
+    @And("A Location Resource with values {string}, {string}, {string} is included in Response Body")
     public void aClinicLocationResourceWithValuesIsIncludedInResponseBody(String address, String capitalCity, String country) {
         ClinicLocationResource expectedResource = new ClinicLocationResource()
                 .withAddress(address)
@@ -73,7 +73,7 @@ public class ClinicLocationServiceTStepDefinitions {
                 .isEqualTo(actualResource);
     }
 
-    @And("A Message with values {string} is include in Response Body for ClinicLocation")
+    @And("A Message with values {string} is include in Response Body for Location")
     public void aMessageWithValuesIsIncludeInResponseBodyForClinicLocation(String expectedMessage) {
         String responseBody = responseEntity.getBody();
         assertThat(responseBody).contains(expectedMessage);

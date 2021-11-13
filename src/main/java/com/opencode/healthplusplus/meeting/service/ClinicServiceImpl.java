@@ -62,7 +62,7 @@ public class ClinicServiceImpl implements ClinicService {
 
         return clinicRepository.findById(clinicId).map(clinic ->
                 clinicRepository.save(
-                        clinic.withClinicLocation(request.getClinicLocation())
+                        clinic.withLocation(request.getLocation())
                                 .withDoctors(request.getDoctors())
                                 .withMedicalHistories(request.getMedicalHistories())))
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, clinicId));

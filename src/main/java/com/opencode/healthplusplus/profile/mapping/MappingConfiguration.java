@@ -26,4 +26,9 @@ public class MappingConfiguration {
         return new DoctorMapper();
     }
 
+    @Bean
+    public AdminClinicMapper adminClinicMapper() {
+        return new AdminClinicMapper();
+    }
+
 }

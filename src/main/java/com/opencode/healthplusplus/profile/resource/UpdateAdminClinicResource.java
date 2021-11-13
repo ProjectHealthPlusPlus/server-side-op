@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateDoctorResource extends UserResource{
-    private Long specialtyId;
+public class UpdateAdminClinicResource extends UpdateUserResource{
     private Long clinicId;
+    private Long specialtyId;
 }
