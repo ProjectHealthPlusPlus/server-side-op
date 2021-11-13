@@ -1,5 +1,6 @@
 package com.opencode.healthplusplus.profile.controller;
 
+import com.opencode.healthplusplus.profile.domain.entity.Doctor;
 import com.opencode.healthplusplus.profile.domain.service.DoctorService;
 import com.opencode.healthplusplus.profile.mapping.DoctorMapper;
 import com.opencode.healthplusplus.profile.resource.CreateDoctorResource;
@@ -113,11 +114,37 @@ public class DoctorController {
     }
 
 
+    @Operation(summary = "Add clinic")
+    @PatchMapping("{doctorId}")
+    public DoctorResource assignClinicToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
+        return mapper.toResource(doctorService.addClinic(doctorId, request.getClinicId()));
+    }
+
+    @Operation(summary = "Remove clinic")
+    @PatchMapping("{doctorId}/removeClinic")
+    public DoctorResource removeClinicToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
+        return mapper.toResource(doctorService.deleteClinic(doctorId, request.getClinicId()));
+    }
+
+    @Operation(summary = "Add Specialty")
+    @PatchMapping("{doctorId}/addSpecialty")
+    public DoctorResource assignSpecialtyToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
+        return mapper.toResource(doctorService.addSpecialty(doctorId, request.getSpecialtyId()));
+    }
+
+    @Operation(summary = "Remove Specialty")
+    @PatchMapping("{doctorId}/removeSpecialty")
+    public DoctorResource removeSpecialtyToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
+        return mapper.toResource(doctorService.deleteSpecialty(doctorId, request.getSpecialtyId()));
+    }
+
+
     @Operation(summary = "Delete a doctor", description = "Delete A Doctor By Given An Id.")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Doctor deleted"
+                    description = "Doctor deleted",
+                    content = @Content(mediaType = "application/json")
             )
     })
     @DeleteMapping("{doctorId}")

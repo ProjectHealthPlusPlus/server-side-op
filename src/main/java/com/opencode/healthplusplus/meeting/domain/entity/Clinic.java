@@ -14,7 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @With
-@Entity(name = "clinics")
+@Entity
+@Table(name = "clinics")
 public class Clinic extends User {
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)

@@ -1,7 +1,6 @@
 package com.opencode.healthplusplus.profile.resource;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +9,9 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@With
 public class UpdateUserResource {
 
     protected Long id;

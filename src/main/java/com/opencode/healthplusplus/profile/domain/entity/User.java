@@ -15,11 +15,11 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @With
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User extends AuditModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     protected Long id;
 
     @NotNull
@@ -40,4 +40,5 @@ public class User extends AuditModel {
     @NotNull
     @Digits(integer = 3, fraction = 0)
     private int age;
+
 }

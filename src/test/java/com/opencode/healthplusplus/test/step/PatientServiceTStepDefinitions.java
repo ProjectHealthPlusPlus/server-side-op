@@ -36,12 +36,11 @@ public class PatientServiceTStepDefinitions {
 
     @When("A Patient Post Request is sent with values {int}, {string}, {string}, {int}, {string}")
     public void aPatientPostRequestIsSentWithValues(int dni, String name, String lastName, int age, String address) {
-        CreatePatientResource resource = (CreatePatientResource) new CreatePatientResource()
-                .withAddress(address)
-                .withDni(dni)
-                .withName(name)
-                .withLastName(lastName)
-                .withAge(age);
+        CreatePatientResource resource = new CreatePatientResource().withAddress(address);
+        resource.setDni(dni);
+        resource.setName(name);
+        resource.setLastName(lastName);
+        resource.setAge(age);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<CreatePatientResource> request = new HttpEntity<>(resource, headers);
@@ -56,12 +55,11 @@ public class PatientServiceTStepDefinitions {
 
     @And("A Patient Resource with values {int}, {string}, {string}, {int}, {string} is included in Response Body")
     public void aPatientResourceWithValuesIsIncludedInResponseBody(int dni, String name, String lastName, int age, String address) {
-        PatientResource expectedResource = (PatientResource) new PatientResource()
-                .withAddress(address)
-                .withDni(dni)
-                .withName(name)
-                .withLastName(lastName)
-                .withAge(age);
+        PatientResource expectedResource = new PatientResource().withAddress(address);
+        expectedResource.setDni(dni);
+        expectedResource.setName(name);
+        expectedResource.setLastName(lastName);
+        expectedResource.setAge(age);
         String value = responseEntity.getBody();
         ObjectMapper mapper = new ObjectMapper();
         PatientResource actualResource;
@@ -77,12 +75,11 @@ public class PatientServiceTStepDefinitions {
 
     @Given("A Patient Resource with values {int}, {string}, {string}, {int}, {string} is already stored")
     public void aPatientResourceWithValuesIsAlreadyStored(int dni, String name, String lastName, int age, String address) {
-        CreatePatientResource resource = (CreatePatientResource) new CreatePatientResource()
-                .withAddress(address)
-                .withDni(dni)
-                .withName(name)
-                .withLastName(lastName)
-                .withAge(age);
+        CreatePatientResource resource = new CreatePatientResource().withAddress(address);
+        resource.setDni(dni);
+        resource.setName(name);
+        resource.setLastName(lastName);
+        resource.setAge(age);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<CreatePatientResource> request = new HttpEntity<>(resource, headers);

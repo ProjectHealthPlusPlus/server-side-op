@@ -1,6 +1,5 @@
 package com.opencode.healthplusplus.profile.domain.entity;
 
-import com.opencode.healthplusplus.profile.domain.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,10 +11,12 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @With
-@Entity(name = "patients")
+@Entity
+@Table(name = "patients")
 public class Patient extends User {
 
     @NotNull
     @Size(max = 100)
     private String address;
+
 }
