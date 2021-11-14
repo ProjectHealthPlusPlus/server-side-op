@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class DoctorResource extends UserResource {
+public class AdminClinicResource extends UserResource {
+    private Clinic clinic;
     private List<Specialty> specialties;
-    private List<Clinic> clinics;
 }

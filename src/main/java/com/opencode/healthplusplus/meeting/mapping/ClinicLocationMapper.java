@@ -1,6 +1,6 @@
 package com.opencode.healthplusplus.meeting.mapping;
 
-import com.opencode.healthplusplus.meeting.domain.entity.ClinicLocation;
+import com.opencode.healthplusplus.meeting.domain.entity.Location;
 import com.opencode.healthplusplus.meeting.resource.ClinicLocationResource;
 import com.opencode.healthplusplus.meeting.resource.CreateClinicLocationResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateClinicLocationResource;
@@ -20,22 +20,22 @@ public class ClinicLocationMapper implements Serializable {
 
     // Object Mapping
 
-    public ClinicLocationResource toResource(ClinicLocation model) {
+    public ClinicLocationResource toResource(Location model) {
         return mapper.map(model, ClinicLocationResource.class);
     }
 
-    public Page<ClinicLocationResource> modelListToPage(List<ClinicLocation> modelList, Pageable pageable) {
+    public Page<ClinicLocationResource> modelListToPage(List<Location> modelList, Pageable pageable) {
         return new PageImpl<>(
                 mapper.mapList(modelList, ClinicLocationResource.class),
                 pageable,
                 modelList.size());
     }
 
-    public ClinicLocation toModel(CreateClinicLocationResource resource) {
-        return mapper.map(resource, ClinicLocation.class);
+    public Location toModel(CreateClinicLocationResource resource) {
+        return mapper.map(resource, Location.class);
     }
 
-    public ClinicLocation toModel(UpdateClinicLocationResource resource) {
-        return mapper.map(resource, ClinicLocation.class);
+    public Location toModel(UpdateClinicLocationResource resource) {
+        return mapper.map(resource, Location.class);
     }
 }

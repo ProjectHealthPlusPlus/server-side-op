@@ -123,7 +123,7 @@ public class DoctorController {
     @Operation(summary = "Remove clinic")
     @PatchMapping("{doctorId}/removeClinic")
     public DoctorResource removeClinicToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
-        return mapper.toResource(doctorService.deleteClinic(doctorId, request.getClinicId()));
+        return mapper.toResource(doctorService.removeClinic(doctorId, request.getClinicId()));
     }
 
     @Operation(summary = "Add Specialty")
@@ -135,7 +135,7 @@ public class DoctorController {
     @Operation(summary = "Remove Specialty")
     @PatchMapping("{doctorId}/removeSpecialty")
     public DoctorResource removeSpecialtyToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
-        return mapper.toResource(doctorService.deleteSpecialty(doctorId, request.getSpecialtyId()));
+        return mapper.toResource(doctorService.removeSpecialty(doctorId, request.getSpecialtyId()));
     }
 
 

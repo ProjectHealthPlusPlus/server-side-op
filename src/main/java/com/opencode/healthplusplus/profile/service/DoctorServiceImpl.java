@@ -59,6 +59,11 @@ public class DoctorServiceImpl implements DoctorService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
+        Doctor doctorWithDni = doctorRepository.findByDni(request.getDni());
+
+        if(doctorWithDni != null)
+            throw new ResourceValidationException(ENTITY, "A Doctor with the same dni exist");
+
         return doctorRepository.save(request);
     }
 
@@ -99,7 +104,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor deleteClinic(Long doctorId, Long clinicId) {
+    public Doctor removeClinic(Long doctorId, Long clinicId) {
 
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
@@ -127,7 +132,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor deleteSpecialty(Long doctorId, Long specialtyId) {
+    public Doctor removeSpecialty(Long doctorId, Long specialtyId) {
 
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
