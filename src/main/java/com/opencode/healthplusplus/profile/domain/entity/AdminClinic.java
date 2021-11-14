@@ -18,7 +18,6 @@ public class AdminClinic extends User{
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "clinic_id", nullable = false)
-    @JsonIgnore
     private Clinic clinic;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

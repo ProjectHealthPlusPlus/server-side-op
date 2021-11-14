@@ -23,8 +23,7 @@ public class Clinic {
     protected Long id;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "admin_clinic_id")
-    @JsonIgnore
+    @JoinColumn(name = "admin_clinic_id", nullable = false)
     private AdminClinic adminClinic;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
