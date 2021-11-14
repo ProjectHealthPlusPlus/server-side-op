@@ -7,9 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @With
-public class ClinicLocationResource {
+public class LocationResource {
     private Long id;
     private String address;
-    private String capitalCity;
+    private String city;
     private String country;
 }

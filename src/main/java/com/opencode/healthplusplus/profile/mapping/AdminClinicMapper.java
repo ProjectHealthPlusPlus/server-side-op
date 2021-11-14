@@ -8,6 +8,7 @@ import com.opencode.healthplusplus.profile.domain.persistence.SpecialtyRepositor
 import com.opencode.healthplusplus.profile.resource.AdminClinicResource;
 import com.opencode.healthplusplus.profile.resource.CreateAdminClinicResource;
 import com.opencode.healthplusplus.profile.resource.UpdateAdminClinicResource;
+import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
 import com.opencode.healthplusplus.shared.mapping.EnhanceModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,13 +44,12 @@ public class AdminClinicMapper implements Serializable {
     public AdminClinic toModel(CreateAdminClinicResource resource) {
         List<Specialty> specialties = specialtyRepository.findAllById(resource.getSpecialtiesId());
         Clinic clinic = clinicRepository.findById(resource.getClinicId())
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("Clinic", resource.getClinicId()));
 
         AdminClinic adminClinic = new AdminClinic();
 
         adminClinic.setSpecialties(specialties);
-        if (clinic != null)
-            adminClinic.setClinic(clinic);
+        adminClinic.setClinic(clinic);
         adminClinic.setAge(resource.getAge());
         adminClinic.setDni(resource.getDni());
         adminClinic.setLastName(resource.getLastName());

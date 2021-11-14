@@ -114,28 +114,28 @@ public class DoctorController {
     }
 
 
-    @Operation(summary = "Add clinic")
-    @PatchMapping("{doctorId}")
+    @Operation(summary = "Add clinics")
+    @PatchMapping("{doctorId}/addClinics")
     public DoctorResource assignClinicToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
-        return mapper.toResource(doctorService.addClinic(doctorId, request.getClinicId()));
+        return mapper.toResource(doctorService.addClinics(doctorId, request.getClinicsId()));
     }
 
-    @Operation(summary = "Remove clinic")
-    @PatchMapping("{doctorId}/removeClinic")
+    @Operation(summary = "Remove clinics")
+    @PatchMapping("{doctorId}/removeClinics")
     public DoctorResource removeClinicToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
-        return mapper.toResource(doctorService.removeClinic(doctorId, request.getClinicId()));
+        return mapper.toResource(doctorService.removeClinics(doctorId, request.getClinicsId()));
     }
 
-    @Operation(summary = "Add Specialty")
-    @PatchMapping("{doctorId}/addSpecialty")
+    @Operation(summary = "Add Specialties")
+    @PatchMapping("{doctorId}/addSpecialties")
     public DoctorResource assignSpecialtyToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
-        return mapper.toResource(doctorService.addSpecialty(doctorId, request.getSpecialtyId()));
+        return mapper.toResource(doctorService.addSpecialties(doctorId, request.getSpecialtiesId()));
     }
 
-    @Operation(summary = "Remove Specialty")
-    @PatchMapping("{doctorId}/removeSpecialty")
+    @Operation(summary = "Remove Specialties")
+    @PatchMapping("{doctorId}/removeSpecialties")
     public DoctorResource removeSpecialtyToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
-        return mapper.toResource(doctorService.removeSpecialty(doctorId, request.getSpecialtyId()));
+        return mapper.toResource(doctorService.removeSpecialties(doctorId, request.getSpecialtiesId()));
     }
 
 

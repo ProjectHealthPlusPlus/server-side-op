@@ -1,8 +1,12 @@
 package com.opencode.healthplusplus.meeting.service;
 
 import com.opencode.healthplusplus.meeting.domain.entity.Clinic;
+import com.opencode.healthplusplus.meeting.domain.entity.Location;
 import com.opencode.healthplusplus.meeting.domain.persistence.ClinicRepository;
+import com.opencode.healthplusplus.meeting.domain.persistence.LocationRepository;
 import com.opencode.healthplusplus.meeting.domain.service.ClinicService;
+import com.opencode.healthplusplus.profile.domain.entity.Doctor;
+import com.opencode.healthplusplus.profile.domain.persistence.DoctorRepository;
 import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
 import com.opencode.healthplusplus.shared.exception.ResourceValidationException;
 import org.springframework.data.domain.Page;
@@ -20,10 +24,14 @@ public class ClinicServiceImpl implements ClinicService {
 
     private static final String ENTITY = "Clinic";
     private final ClinicRepository clinicRepository;
+    private final DoctorRepository doctorRepository;
+    private final LocationRepository locationRepository;
     private final Validator validator;
 
-    public ClinicServiceImpl(ClinicRepository clinicRepository, Validator validator) {
+    public ClinicServiceImpl(ClinicRepository clinicRepository, DoctorRepository doctorRepository, LocationRepository locationRepository, Validator validator) {
         this.clinicRepository = clinicRepository;
+        this.doctorRepository = doctorRepository;
+        this.locationRepository = locationRepository;
         this.validator = validator;
     }
 
@@ -62,10 +70,50 @@ public class ClinicServiceImpl implements ClinicService {
 
         return clinicRepository.findById(clinicId).map(clinic ->
                 clinicRepository.save(
-                        clinic.withLocation(request.getLocation())
-                                .withDoctors(request.getDoctors())
-                                .withMedicalHistories(request.getMedicalHistories())))
+                        clinic.withId(request.getId())
+                                .withLocation(request.getLocation())
+                                .withDoctors(request.getDoctors())))
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, clinicId));
+    }
+
+    @Override
+    public Clinic changeLocation(Long clinicId, Long locationId) {
+
+        Clinic clinic = clinicRepository.findById(clinicId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, clinicId));
+
+        Location location = locationRepository.findById(locationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Location", locationId));
+
+        clinic.setLocation(location);
+
+        return clinicRepository.save(clinic);
+    }
+
+    @Override
+    public Clinic addDoctors(Long clinicId, List<Long> doctorsId) {
+
+        Clinic clinic = clinicRepository.findById(clinicId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, clinicId));
+
+        List<Doctor> doctors = doctorRepository.findAllById(doctorsId);
+
+        clinic.addDoctors(doctors);
+
+        return clinicRepository.save(clinic);
+    }
+
+    @Override
+    public Clinic removeDoctors(Long clinicId, List<Long> doctorsId) {
+
+        Clinic clinic = clinicRepository.findById(clinicId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, clinicId));
+
+        List<Doctor> doctors = doctorRepository.findAllById(doctorsId);
+
+        clinic.removeDoctors(doctors);
+
+        return clinicRepository.save(clinic);
     }
 
     @Override

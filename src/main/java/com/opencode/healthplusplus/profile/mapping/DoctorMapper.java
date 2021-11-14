@@ -1,6 +1,10 @@
 package com.opencode.healthplusplus.profile.mapping;
 
+import com.opencode.healthplusplus.meeting.domain.entity.Clinic;
+import com.opencode.healthplusplus.meeting.domain.persistence.ClinicRepository;
 import com.opencode.healthplusplus.profile.domain.entity.Doctor;
+import com.opencode.healthplusplus.profile.domain.entity.Specialty;
+import com.opencode.healthplusplus.profile.domain.persistence.SpecialtyRepository;
 import com.opencode.healthplusplus.profile.resource.CreateDoctorResource;
 import com.opencode.healthplusplus.profile.resource.DoctorResource;
 import com.opencode.healthplusplus.profile.resource.UpdateDoctorResource;
@@ -18,6 +22,11 @@ public class DoctorMapper implements Serializable {
     @Autowired
     private EnhanceModelMapper mapper;
 
+    @Autowired
+    private SpecialtyRepository specialtyRepository;
+    @Autowired
+    private ClinicRepository clinicRepository;
+
     // Object Mapping
 
     public DoctorResource toResource(Doctor model) {
@@ -32,7 +41,20 @@ public class DoctorMapper implements Serializable {
     }
 
     public Doctor toModel(CreateDoctorResource resource) {
-        return mapper.map(resource, Doctor.class);
+        List<Specialty> specialties = specialtyRepository.findAllById(resource.getSpecialtiesId());
+        List<Clinic> clinics = clinicRepository.findAllById(resource.getClinicsId());
+
+        Doctor doctor = new Doctor();
+
+        doctor.setSpecialties(specialties);
+        doctor.setClinics(clinics);
+        doctor.setAge(resource.getAge());
+        doctor.setDni(resource.getDni());
+        doctor.setLastName(resource.getLastName());
+        doctor.setName(resource.getName());
+
+        return doctor;
+
     }
 
     public Doctor toModel(UpdateDoctorResource resource) {

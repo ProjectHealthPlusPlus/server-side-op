@@ -5,6 +5,8 @@ import com.opencode.healthplusplus.meeting.mapping.ClinicMapper;
 import com.opencode.healthplusplus.meeting.resource.ClinicResource;
 import com.opencode.healthplusplus.meeting.resource.CreateClinicResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateClinicResource;
+import com.opencode.healthplusplus.profile.resource.DoctorResource;
+import com.opencode.healthplusplus.profile.resource.UpdateDoctorResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -110,6 +112,25 @@ public class ClinicController {
     @PutMapping("{clinicId}")
     public ClinicResource updateClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
         return mapper.toResource(clinicService.update(clinicId, mapper.toModel(request)));
+    }
+
+
+    @Operation(summary = "Change Location")
+    @PatchMapping("{clinicId}/changeLocation")
+    public ClinicResource changeLocationOfClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.changeLocation(clinicId, request.getLocationId()));
+    }
+
+    @Operation(summary = "Add Doctors")
+    @PatchMapping("{clinicId}/addDoctors")
+    public ClinicResource assignDoctorsToClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.addDoctors(clinicId, request.getDoctorsId()));
+    }
+
+    @Operation(summary = "Remove Doctors")
+    @PatchMapping("{clinicId}/removeDoctors")
+    public ClinicResource removeDoctorsToClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.removeDoctors(clinicId, request.getDoctorsId()));
     }
 
 

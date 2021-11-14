@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 public class MappingConfiguration {
 
     @Bean
-    public ClinicLocationMapper clinicLocationMapper() {
-        return new ClinicLocationMapper();
+    public LocationMapper clinicLocationMapper() {
+        return new LocationMapper();
     }
 
     @Bean

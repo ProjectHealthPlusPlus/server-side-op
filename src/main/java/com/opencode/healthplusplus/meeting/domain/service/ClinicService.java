@@ -13,5 +13,8 @@ public interface ClinicService {
     Clinic getById(Long clinicId);
     Clinic create(Clinic request);
     Clinic update(Long clinicId, Clinic request);
+    Clinic changeLocation(Long clinicId, Long locationId);
+    Clinic addDoctors(Long clinicId, List<Long> doctorsId);
+    Clinic removeDoctors(Long clinicId, List<Long> doctorsId);
     ResponseEntity<?> delete(Long clinicId);
 }

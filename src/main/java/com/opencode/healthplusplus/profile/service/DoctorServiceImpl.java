@@ -90,57 +90,53 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor addClinic(Long doctorId, Long clinicId) {
+    public Doctor addClinics(Long doctorId, List<Long> clinicsId) {
 
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
 
-        Clinic clinic = clinicRepository.findById(clinicId)
-                .orElseThrow(() -> new ResourceNotFoundException("Clinic", clinicId));
+        List<Clinic> clinics = clinicRepository.findAllById(clinicsId);
 
-        doctor.addClinic(clinic);
+        doctor.addClinics(clinics);
 
         return doctorRepository.save(doctor);
     }
 
     @Override
-    public Doctor removeClinic(Long doctorId, Long clinicId) {
+    public Doctor removeClinics(Long doctorId, List<Long> clinicsId) {
 
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
 
-        Clinic clinic = clinicRepository.findById(clinicId)
-                .orElseThrow(() -> new ResourceNotFoundException("Clinic", clinicId));
+        List<Clinic> clinics = clinicRepository.findAllById(clinicsId);
 
-        doctor.removeClinic(clinic);
+        doctor.removeClinics(clinics);
 
         return doctorRepository.save(doctor);
     }
 
     @Override
-    public Doctor addSpecialty(Long doctorId, Long specialtyId) {
+    public Doctor addSpecialties(Long doctorId, List<Long> specialtiesId) {
 
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
 
-        Specialty specialty = specialtyRepository.findById(specialtyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Specialty", specialtyId));
+        List<Specialty> specialties = specialtyRepository.findAllById(specialtiesId);
 
-        doctor.addSpecialty(specialty);
+        doctor.addSpecialties(specialties);
 
         return doctorRepository.save(doctor);
     }
 
     @Override
-    public Doctor removeSpecialty(Long doctorId, Long specialtyId) {
+    public Doctor removeSpecialties(Long doctorId, List<Long> specialtiesId) {
 
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
 
-        Specialty specialty = specialtyRepository.findById(specialtyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Specialty", specialtyId));
+        List<Specialty> specialties = specialtyRepository.findAllById(specialtiesId);
 
-        doctor.removeSpecialty(specialty);
+        doctor.removeSpecialties(specialties);
 
         return doctorRepository.save(doctor);
     }

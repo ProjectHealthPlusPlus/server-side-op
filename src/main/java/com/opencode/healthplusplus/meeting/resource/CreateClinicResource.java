@@ -1,6 +1,7 @@
 package com.opencode.healthplusplus.meeting.resource;
 
 import com.opencode.healthplusplus.meeting.domain.entity.Location;
+import com.opencode.healthplusplus.profile.domain.entity.AdminClinic;
 import com.opencode.healthplusplus.profile.resource.UserResource;
 import com.opencode.healthplusplus.profile.domain.entity.Doctor;
 import com.opencode.healthplusplus.health.domain.entity.MedicalHistory;
@@ -11,8 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CreateClinicResource extends UserResource {
-    private Location clinicLocation;
-    private List<Doctor> doctors;
-    private List<MedicalHistory> medicalHistories;
+public class CreateClinicResource {
+    private Long locationId;
+    private List<Long> doctorsId;
 }

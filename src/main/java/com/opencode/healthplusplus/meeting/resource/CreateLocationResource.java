@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @With
-public class CreateClinicLocationResource {
+public class CreateLocationResource {
 
     @NotNull
     @NotBlank
@@ -21,7 +21,7 @@ public class CreateClinicLocationResource {
     @NotNull
     @NotBlank
     @Size(max = 20)
-    private String capitalCity;
+    private String city;
 
     @NotNull
     @NotBlank

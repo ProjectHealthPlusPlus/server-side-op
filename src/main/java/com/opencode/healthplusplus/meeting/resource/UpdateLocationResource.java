@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class UpdateClinicLocationResource {
+public class UpdateLocationResource {
 
     private Long id;
 
@@ -21,7 +21,7 @@ public class UpdateClinicLocationResource {
     @NotNull
     @NotBlank
     @Size(max = 20)
-    private String capitalCity;
+    private String city;
 
     @NotNull
     @NotBlank
