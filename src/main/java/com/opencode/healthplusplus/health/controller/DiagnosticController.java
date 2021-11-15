@@ -130,7 +130,7 @@ public class DiagnosticController {
                     }
             )
     })
-    @PostMapping("clinics/{clinicId}/medicalHistories/{medicalHistoryId}/diagnostics/{diagnosticId}")
+    @PostMapping("clinics/{clinicId}/medicalHistories/{medicalHistoryId}/diagnostics/")
     public DiagnosticResource createDiagnostic(@PathVariable Long medicalHistoryId, @RequestBody CreateDiagnosticResource request) {
         return mapper.toResource(diagnosticService.create(medicalHistoryId, mapper.toModel(request)));
     }

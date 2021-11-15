@@ -1,13 +1,12 @@
 package com.opencode.healthplusplus.profile.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.opencode.healthplusplus.meeting.domain.entity.Clinic;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -17,8 +16,8 @@ import java.util.List;
 @With
 @Entity
 @Table(name = "doctors")
-@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class)
-public class Doctor extends User {
+//@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class)
+public class Doctor extends User implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "doctors_specialties",

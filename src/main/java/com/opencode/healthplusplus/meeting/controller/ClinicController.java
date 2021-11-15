@@ -5,8 +5,6 @@ import com.opencode.healthplusplus.meeting.mapping.ClinicMapper;
 import com.opencode.healthplusplus.meeting.resource.ClinicResource;
 import com.opencode.healthplusplus.meeting.resource.CreateClinicResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateClinicResource;
-import com.opencode.healthplusplus.profile.resource.DoctorResource;
-import com.opencode.healthplusplus.profile.resource.UpdateDoctorResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
