@@ -74,9 +74,10 @@ public class DoctorServiceImpl implements DoctorService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        Doctor doctor = doctorRepository.findById(request.getId())
+        Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
 
+        doctor.setId(doctorId);
         doctor.setClinics(request.getClinics());
         doctor.setSpecialties(request.getSpecialties());
         doctor.setAge(request.getAge());

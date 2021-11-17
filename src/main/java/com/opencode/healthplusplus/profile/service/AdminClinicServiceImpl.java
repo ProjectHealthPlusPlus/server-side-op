@@ -75,11 +75,12 @@ public class AdminClinicServiceImpl implements AdminClinicService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        AdminClinic adminClinic = adminClinicRepository.findById(request.getId())
+        AdminClinic adminClinic = adminClinicRepository.findById(adminClinicId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, adminClinicId));
         Clinic clinic = clinicRepository.findById(request.getClinic().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Clinic", request.getClinic().getId()));
 
+        adminClinic.setId(adminClinicId);
         adminClinic.setClinic(clinic);
         adminClinic.setSpecialties(request.getSpecialties());
         adminClinic.setAge(request.getAge());

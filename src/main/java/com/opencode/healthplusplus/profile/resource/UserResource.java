@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @With
 public class UserResource {
-    protected Long id;
+    private Long id;
     private int dni;
     private String name;
     private String lastName;

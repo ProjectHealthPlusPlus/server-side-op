@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @With
 public class UpdateUserResource {
 
-    protected Long id;
+    private Long id;
 
     @NotNull
     private int dni;
