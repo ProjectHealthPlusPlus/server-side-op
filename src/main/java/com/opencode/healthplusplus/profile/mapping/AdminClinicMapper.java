@@ -45,21 +45,25 @@ public class AdminClinicMapper implements Serializable {
         Clinic clinic = clinicRepository.findById(resource.getClinicId())
                 .orElseThrow(() -> new ResourceNotFoundException("Clinic", resource.getClinicId()));
 
-        AdminClinic adminClinic = new AdminClinic();
+        AdminClinic adminClinic = mapper.map(resource, AdminClinic.class);
 
         adminClinic.setSpecialties(specialties);
         adminClinic.setClinic(clinic);
-        adminClinic.setAge(resource.getAge());
-        adminClinic.setDni(resource.getDni());
-        adminClinic.setLastName(resource.getLastName());
-        adminClinic.setName(resource.getName());
 
         return adminClinic;
     }
 
     public AdminClinic toModel(UpdateAdminClinicResource resource) {
+        List<Specialty> specialties = specialtyRepository.findAllById(resource.getSpecialtiesId());
+        Clinic clinic = clinicRepository.findById(resource.getClinicId())
+                .orElseThrow(() -> new ResourceNotFoundException("Clinic", resource.getClinicId()));
 
-        return mapper.map(resource, AdminClinic.class);
+        AdminClinic adminClinic = mapper.map(resource, AdminClinic.class);
+
+        adminClinic.setSpecialties(specialties);
+        adminClinic.setClinic(clinic);
+
+        return adminClinic;
     }
 
 }

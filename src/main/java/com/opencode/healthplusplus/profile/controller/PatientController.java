@@ -7,6 +7,7 @@ import com.opencode.healthplusplus.profile.resource.PatientResource;
 import com.opencode.healthplusplus.profile.resource.UpdatePatientResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -72,6 +73,18 @@ public class PatientController {
 
 
     @Operation(summary = "Create a patient", description = "Create A Patient.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"dni\": 12345678, " +
+                                    "\"name\": \"Patrick\", " +
+                                    "\"lastName\": \"Ortiz\", " +
+                                    "\"age\": 19, " +
+                                    "\"address\": \"Av. La Molina\"}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -80,7 +93,7 @@ public class PatientController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = CreatePatientResource.class
+                                            implementation = PatientResource.class
                                     )
                             )
                     }
@@ -93,6 +106,18 @@ public class PatientController {
 
 
     @Operation(summary = "Edit a patient", description = "Edit A Patient By Given An Id.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"dni\": 12345678, " +
+                                    "\"name\": \"Patrick\", " +
+                                    "\"lastName\": \"Ortiz\", " +
+                                    "\"age\": 20, " +
+                                    "\"address\": \"Av. Arequipa\"}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -101,7 +126,7 @@ public class PatientController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = UpdatePatientResource.class
+                                            implementation = PatientResource.class
                                     )
                             )
                     }

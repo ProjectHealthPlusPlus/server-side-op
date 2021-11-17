@@ -46,7 +46,7 @@ public class ClinicMapper implements Serializable {
         Location location = locationRepository.findById(resource.getLocationId())
                 .orElseThrow(() -> new ResourceNotFoundException("Location", resource.getLocationId()));
 
-        Clinic clinic = new Clinic();
+        Clinic clinic = mapper.map(resource, Clinic.class);
 
         clinic.setDoctors(doctors);
         clinic.setLocation(location);
@@ -55,7 +55,16 @@ public class ClinicMapper implements Serializable {
     }
 
     public Clinic toModel(UpdateClinicResource resource) {
-        return mapper.map(resource, Clinic.class);
+        List<Doctor> doctors = doctorRepository.findAllById(resource.getDoctorsId());
+        Location location = locationRepository.findById(resource.getLocationId())
+                .orElseThrow(() -> new ResourceNotFoundException("Location", resource.getLocationId()));
+
+        Clinic clinic = mapper.map(resource, Clinic.class);
+
+        clinic.setDoctors(doctors);
+        clinic.setLocation(location);
+
+        return clinic;
     }
 
 }

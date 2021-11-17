@@ -7,6 +7,7 @@ import com.opencode.healthplusplus.profile.resource.SpecialtyResource;
 import com.opencode.healthplusplus.profile.resource.UpdateSpecialtyResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -72,6 +73,15 @@ public class SpecialtyController {
 
 
     @Operation(summary = "Create a specialty", description = "Specialty A Patient.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"name\": \"Cardiology\", " +
+                                    "\"description\": \"The branch of medicine that deals with diseases and abnormalities of the heart.\"}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -80,7 +90,7 @@ public class SpecialtyController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = CreateSpecialtyResource.class
+                                            implementation = SpecialtyResource.class
                                     )
                             )
                     }
@@ -93,6 +103,15 @@ public class SpecialtyController {
 
 
     @Operation(summary = "Edit a specialty", description = "Edit A Specialty By Given An Id.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"name\": \"Cardio\", \"description\": " +
+                                    "\"The branch of medicine that deals with diseases and abnormalities of the heart.\"}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -101,7 +120,7 @@ public class SpecialtyController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = UpdateSpecialtyResource.class
+                                            implementation = SpecialtyResource.class
                                     )
                             )
                     }

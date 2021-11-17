@@ -7,6 +7,7 @@ import com.opencode.healthplusplus.meeting.resource.CreateLocationResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateLocationResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -72,6 +73,16 @@ public class LocationController {
 
 
     @Operation(summary = "Create a Location", description = "Create A Location.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"address\": \"Av. Javier Prado\", " +
+                                    "\"city\": \"Lima\", " +
+                                    "\"country\": \"Peru\"}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -80,7 +91,7 @@ public class LocationController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = CreateLocationResource.class
+                                            implementation = LocationResource.class
                                     )
                             )
                     }
@@ -93,6 +104,16 @@ public class LocationController {
 
 
     @Operation(summary = "Edit a Location", description = "Edit A Location By Given An Id.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"address\": \"Av. Arequipa\", " +
+                                    "\"city\": \"Ica\", " +
+                                    "\"country\": \"Peru\"}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -101,7 +122,7 @@ public class LocationController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = UpdateLocationResource.class
+                                            implementation = LocationResource.class
                                     )
                             )
                     }

@@ -44,20 +44,24 @@ public class DoctorMapper implements Serializable {
         List<Specialty> specialties = specialtyRepository.findAllById(resource.getSpecialtiesId());
         List<Clinic> clinics = clinicRepository.findAllById(resource.getClinicsId());
 
-        Doctor doctor = new Doctor();
+        Doctor doctor = mapper.map(resource, Doctor.class);
 
         doctor.setSpecialties(specialties);
         doctor.setClinics(clinics);
-        doctor.setAge(resource.getAge());
-        doctor.setDni(resource.getDni());
-        doctor.setLastName(resource.getLastName());
-        doctor.setName(resource.getName());
 
         return doctor;
 
     }
 
     public Doctor toModel(UpdateDoctorResource resource) {
-        return mapper.map(resource, Doctor.class);
+        List<Specialty> specialties = specialtyRepository.findAllById(resource.getSpecialtiesId());
+        List<Clinic> clinics = clinicRepository.findAllById(resource.getClinicsId());
+
+        Doctor doctor = mapper.map(resource, Doctor.class);
+
+        doctor.setClinics(clinics);
+        doctor.setSpecialties(specialties);
+
+        return doctor;
     }
 }
