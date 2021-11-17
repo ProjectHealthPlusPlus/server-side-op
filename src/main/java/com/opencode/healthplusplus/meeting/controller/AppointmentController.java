@@ -7,6 +7,7 @@ import com.opencode.healthplusplus.meeting.resource.CreateAppointmentResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateAppointmentResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -72,6 +73,17 @@ public class AppointmentController {
 
 
     @Operation(summary = "Create an appointment", description = "Create An Appointment.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"startAt\": \"2021-11-17T06:51:19.661Z\", " +
+                                    "\"patientId\": 1, " +
+                                    "\"doctorId\": 1, " +
+                                    "\"appointmentDetailsId\": 1}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -80,7 +92,7 @@ public class AppointmentController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = CreateAppointmentResource.class
+                                            implementation = AppointmentResource.class
                                     )
                             )
                     }
@@ -93,6 +105,17 @@ public class AppointmentController {
 
 
     @Operation(summary = "Edit an appointment", description = "Edit An Appointment By Given An Id.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"startAt\": \"2021-20-17T06:51:19.661Z\", " +
+                                    "\"patientId\": 1, " +
+                                    "\"doctorId\": 2, " +
+                                    "\"appointmentDetailsId\": 2}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -101,7 +124,7 @@ public class AppointmentController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = UpdateAppointmentResource.class
+                                            implementation = AppointmentResource.class
                                     )
                             )
                     }

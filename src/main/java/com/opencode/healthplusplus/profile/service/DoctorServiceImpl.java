@@ -76,8 +76,6 @@ public class DoctorServiceImpl implements DoctorService {
 
         Doctor doctor = doctorRepository.findById(request.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
-//        Clinic clinic = clinicRepository.findAllById(request.getClinicsId())
-//                .orElseThrow(() -> new ResourceNotFoundException("Clinics not found"));
 
         doctor.setClinics(request.getClinics());
         doctor.setSpecialties(request.getSpecialties());

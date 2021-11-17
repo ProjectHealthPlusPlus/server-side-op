@@ -7,6 +7,7 @@ import com.opencode.healthplusplus.health.resource.MedicalHistoryResource;
 import com.opencode.healthplusplus.health.resource.UpdateMedicalHistoryResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -117,6 +118,15 @@ public class MedicalHistoryController {
 
     @Tag(name = "Clinics")
     @Operation(summary = "Create a medical history", description = "Create A Medical History.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"patientId\": 1, " +
+                                    "\"diagnosticsId\": []}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -138,6 +148,15 @@ public class MedicalHistoryController {
 
     @Tag(name = "Clinics")
     @Operation(summary = "Edit a medical history", description = "Edit A Medical History By Given An Id.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"patientId\": 1, " +
+                                    "\"diagnosticsId\": [ 1, 2 ]}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",

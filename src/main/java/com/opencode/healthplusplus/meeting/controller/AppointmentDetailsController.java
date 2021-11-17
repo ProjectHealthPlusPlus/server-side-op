@@ -7,6 +7,7 @@ import com.opencode.healthplusplus.meeting.resource.CreateAppointmentDetailsReso
 import com.opencode.healthplusplus.meeting.resource.UpdateAppointmentDetailsResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -72,6 +73,18 @@ public class AppointmentDetailsController {
 
 
     @Operation(summary = "Create an appointmentDetails", description = "Create A AppointmentDetails.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"patientStartedAt\": \"2021-20-17T06:51:19.661Z\", " +
+                                    "\"doctorStartedAt\": \"2021-20-17T06:51:19.661Z\", " +
+                                    "\"patientEndedAt\": \"2021-20-20T06:51:19.661Z\", " +
+                                    "\"doctorEndedAt\": \"2021-20-20T06:51:19.661Z\", " +
+                                    "\"diagnosticId\": 1}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -93,6 +106,18 @@ public class AppointmentDetailsController {
 
 
     @Operation(summary = "Edit an appointmentDetails", description = "Edit An AppointmentDetails By Given An Id.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"patientStartedAt\": \"2021-20-17T06:51:19.661Z\", " +
+                                    "\"doctorStartedAt\": \"2021-20-17T06:51:19.661Z\", " +
+                                    "\"patientEndedAt\": \"2021-20-19T06:51:19.661Z\", " +
+                                    "\"doctorEndedAt\": \"2021-20-19T06:51:19.661Z\", " +
+                                    "\"diagnosticId\": 2}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
