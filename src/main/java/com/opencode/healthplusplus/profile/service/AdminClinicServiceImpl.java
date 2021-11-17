@@ -91,29 +91,27 @@ public class AdminClinicServiceImpl implements AdminClinicService {
     }
 
     @Override
-    public AdminClinic addSpecialty(Long adminClinicId, Long specialtyId) {
+    public AdminClinic addSpecialties(Long adminClinicId, List<Long> specialtiesId) {
 
-        AdminClinic adminClinic = adminClinicRepository.findById(specialtyId)
+        AdminClinic adminClinic = adminClinicRepository.findById(adminClinicId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, adminClinicId));
 
-        Specialty specialty = specialtyRepository.findById(specialtyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Specialty", specialtyId));
+        List<Specialty> specialty = specialtyRepository.findAllById(specialtiesId);
 
-        adminClinic.addSpecialty(specialty);
+        adminClinic.addSpecialties(specialty);
 
         return adminClinicRepository.save(adminClinic);
     }
 
     @Override
-    public AdminClinic removeSpecialty(Long adminClinicId, Long specialtyId) {
+    public AdminClinic removeSpecialties(Long adminClinicId, List<Long> specialtiesId) {
 
-        AdminClinic adminClinic = adminClinicRepository.findById(specialtyId)
+        AdminClinic adminClinic = adminClinicRepository.findById(adminClinicId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, adminClinicId));
 
-        Specialty specialty = specialtyRepository.findById(specialtyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Specialty", specialtyId));
+        List<Specialty> specialty = specialtyRepository.findAllById(specialtiesId);
 
-        adminClinic.removeSpecialty(specialty);
+        adminClinic.removeSpecialties(specialty);
 
         return adminClinicRepository.save(adminClinic);
     }

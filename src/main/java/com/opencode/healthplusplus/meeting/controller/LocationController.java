@@ -1,10 +1,10 @@
 package com.opencode.healthplusplus.meeting.controller;
 
 import com.opencode.healthplusplus.meeting.domain.service.LocationService;
-import com.opencode.healthplusplus.meeting.mapping.ClinicLocationMapper;
-import com.opencode.healthplusplus.meeting.resource.ClinicLocationResource;
-import com.opencode.healthplusplus.meeting.resource.CreateClinicLocationResource;
-import com.opencode.healthplusplus.meeting.resource.UpdateClinicLocationResource;
+import com.opencode.healthplusplus.meeting.mapping.LocationMapper;
+import com.opencode.healthplusplus.meeting.resource.LocationResource;
+import com.opencode.healthplusplus.meeting.resource.CreateLocationResource;
+import com.opencode.healthplusplus.meeting.resource.UpdateLocationResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,41 +16,41 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Clinic Locations")
+@Tag(name = "Locations")
 @RestController
 @RequestMapping("/api/v1/clinicLocations")
-public class ClinicLocationController {
+public class LocationController {
 
     private final LocationService locationService;
-    private final ClinicLocationMapper mapper;
+    private final LocationMapper mapper;
 
-    public ClinicLocationController(LocationService locationService, ClinicLocationMapper mapper) {
+    public LocationController(LocationService locationService, LocationMapper mapper) {
         this.locationService = locationService;
         this.mapper = mapper;
     }
 
-    @Operation(summary = "Get clinicLocations", description = "Get All ClinicLocations.")
+    @Operation(summary = "Get locations", description = "Get All Locations.")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "ClinicLocations found",
+                    description = "Locations found",
                     content = {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = ClinicLocationResource.class
+                                            implementation = LocationResource.class
                                     )
                             )
                     }
             )
     })
     @GetMapping
-    public Page<ClinicLocationResource> getAllClinicLocations(Pageable pageable) {
+    public Page<LocationResource> getAllClinicLocations(Pageable pageable) {
         return mapper.modelListToPage(locationService.getAll(), pageable);
     }
 
 
-    @Operation(summary = "Get a clinicLocation by id", description = "Get A Location By Id")
+    @Operation(summary = "Get a Location by id", description = "Get A Location By Id")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -59,19 +59,19 @@ public class ClinicLocationController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = ClinicLocationResource.class
+                                            implementation = LocationResource.class
                                     )
                             )
                     }
             )
     })
     @GetMapping("{clinicLocationId}")
-    public ClinicLocationResource getClinicLocationById(@PathVariable Long clinicLocationId) {
+    public LocationResource getClinicLocationById(@PathVariable Long clinicLocationId) {
         return mapper.toResource(locationService.getById(clinicLocationId));
     }
 
 
-    @Operation(summary = "Create a clinicLocation", description = "Create A Location.")
+    @Operation(summary = "Create a Location", description = "Create A Location.")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -80,19 +80,19 @@ public class ClinicLocationController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = CreateClinicLocationResource.class
+                                            implementation = CreateLocationResource.class
                                     )
                             )
                     }
             )
     })
     @PostMapping
-    public ClinicLocationResource createClinicLocation(@RequestBody CreateClinicLocationResource request) {
+    public LocationResource createClinicLocation(@RequestBody CreateLocationResource request) {
         return mapper.toResource(locationService.create(mapper.toModel(request)));
     }
 
 
-    @Operation(summary = "Edit a clinicLocation", description = "Edit A Location By Given An Id.")
+    @Operation(summary = "Edit a Location", description = "Edit A Location By Given An Id.")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -101,19 +101,19 @@ public class ClinicLocationController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = UpdateClinicLocationResource.class
+                                            implementation = UpdateLocationResource.class
                                     )
                             )
                     }
             )
     })
     @PutMapping("{clinicLocationId}")
-    public ClinicLocationResource updateClinicLocation(@PathVariable Long clinicLocationId, @RequestBody UpdateClinicLocationResource request) {
+    public LocationResource updateClinicLocation(@PathVariable Long clinicLocationId, @RequestBody UpdateLocationResource request) {
         return mapper.toResource(locationService.update(clinicLocationId, mapper.toModel(request)));
     }
 
 
-    @Operation(summary = "Delete a clinicLocation", description = "Delete A Location By Given An Id.")
+    @Operation(summary = "Delete a Location", description = "Delete A Location By Given An Id.")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",

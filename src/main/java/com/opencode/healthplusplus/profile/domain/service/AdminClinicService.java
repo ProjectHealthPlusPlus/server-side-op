@@ -13,7 +13,7 @@ public interface AdminClinicService {
     AdminClinic getById(Long adminClinicId);
     AdminClinic create(AdminClinic request);
     AdminClinic update(Long adminClinicId, AdminClinic request);
-    AdminClinic addSpecialty(Long adminClinicId, Long specialtyId);
-    AdminClinic removeSpecialty(Long adminClinicId, Long specialtyId);
+    AdminClinic addSpecialties(Long adminClinicId, List<Long> specialtiesId);
+    AdminClinic removeSpecialties(Long adminClinicId, List<Long> specialtiesId);
     ResponseEntity<?> delete(Long adminClinicId);
 }

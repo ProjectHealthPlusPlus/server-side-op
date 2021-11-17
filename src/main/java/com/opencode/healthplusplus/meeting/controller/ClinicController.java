@@ -113,6 +113,25 @@ public class ClinicController {
     }
 
 
+    @Operation(summary = "Change Location")
+    @PatchMapping("{clinicId}/changeLocation")
+    public ClinicResource changeLocationOfClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.changeLocation(clinicId, request.getLocationId()));
+    }
+
+    @Operation(summary = "Add Doctors")
+    @PatchMapping("{clinicId}/addDoctors")
+    public ClinicResource assignDoctorsToClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.addDoctors(clinicId, request.getDoctorsId()));
+    }
+
+    @Operation(summary = "Remove Doctors")
+    @PatchMapping("{clinicId}/removeDoctors")
+    public ClinicResource removeDoctorsToClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.removeDoctors(clinicId, request.getDoctorsId()));
+    }
+
+
     @Operation(summary = "Delete a clinic", description = "Delete A Clinic By Given An Id.")
     @ApiResponses(value = {
             @ApiResponse(

@@ -5,6 +5,7 @@ import com.opencode.healthplusplus.shared.domain.model.AuditModel;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -20,20 +21,20 @@ public class AppointmentDetails extends AuditModel {
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "patient_start_at", nullable = false, updatable = false)
-    private Date patientStartAt;
+    @Column(name = "patient_started_at", nullable = false, updatable = false)
+    private Date patientStartedAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "doctor_start_at", nullable = false, updatable = false)
-    private Date doctorStartAt;
+    @Column(name = "doctor_started_at", nullable = false, updatable = false)
+    private Date doctorStartedAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "patient_end_at", nullable = false, updatable = false)
-    private Date patientEndAt;
+    @Column(name = "patient_ended_at", nullable = false, updatable = false)
+    private Date patientEndedAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "doctor_end_at", nullable = false, updatable = false)
-    private Date doctorEndAt;
+    @Column(name = "doctor_ended_at", nullable = false, updatable = false)
+    private Date doctorEndedAt;
 
     @OneToOne
     private Diagnostic diagnostic;

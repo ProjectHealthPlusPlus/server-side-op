@@ -2,10 +2,8 @@ package com.opencode.healthplusplus.test.step;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.opencode.healthplusplus.meeting.resource.ClinicLocationResource;
-import com.opencode.healthplusplus.meeting.resource.CreateClinicLocationResource;
-import com.opencode.healthplusplus.profile.resource.CreateSpecialtyResource;
-import com.opencode.healthplusplus.profile.resource.SpecialtyResource;
+import com.opencode.healthplusplus.meeting.resource.LocationResource;
+import com.opencode.healthplusplus.meeting.resource.CreateLocationResource;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -37,14 +35,14 @@ public class ClinicLocationServiceTStepDefinitions {
     }
 
     @When("A Location Post Request is sent with values {string}, {string}, {string}")
-    public void aClinicLocationPostRequestIsSentWithValues(String address, String capitalCity, String country) {
-        CreateClinicLocationResource resource = new CreateClinicLocationResource()
+    public void aClinicLocationPostRequestIsSentWithValues(String address, String city, String country) {
+        CreateLocationResource resource = new CreateLocationResource()
                 .withAddress(address)
                 .withCountry(country)
-                .withCapitalCity(capitalCity);
+                .withCity(city);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<CreateClinicLocationResource> request = new HttpEntity<>(resource, headers);
+        HttpEntity<CreateLocationResource> request = new HttpEntity<>(resource, headers);
         responseEntity = testRestTemplate.postForEntity(endPointPath, request, String.class);
     }
 
@@ -55,18 +53,18 @@ public class ClinicLocationServiceTStepDefinitions {
     }
 
     @And("A Location Resource with values {string}, {string}, {string} is included in Response Body")
-    public void aClinicLocationResourceWithValuesIsIncludedInResponseBody(String address, String capitalCity, String country) {
-        ClinicLocationResource expectedResource = new ClinicLocationResource()
+    public void aClinicLocationResourceWithValuesIsIncludedInResponseBody(String address, String city, String country) {
+        LocationResource expectedResource = new LocationResource()
                 .withAddress(address)
                 .withCountry(country)
-                .withCapitalCity(capitalCity);
+                .withCity(city);
         String value = responseEntity.getBody();
         ObjectMapper mapper = new ObjectMapper();
-        ClinicLocationResource actualResource;
+        LocationResource actualResource;
         try {
-            actualResource = mapper.readValue(value, ClinicLocationResource.class);
+            actualResource = mapper.readValue(value, LocationResource.class);
         } catch (JsonProcessingException | NullPointerException e) {
-            actualResource = new ClinicLocationResource();
+            actualResource = new LocationResource();
         }
         expectedResource.setId(actualResource.getId());
         assertThat(expectedResource).usingRecursiveComparison()

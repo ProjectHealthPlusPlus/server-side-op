@@ -1,6 +1,5 @@
 package com.opencode.healthplusplus.profile.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencode.healthplusplus.meeting.domain.entity.Clinic;
 import lombok.*;
 
@@ -20,14 +19,18 @@ public class AdminClinic extends User{
     @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "admins_clinics_specialties",
+            joinColumns = {@JoinColumn(name = "admin_clinic_id")},
+            inverseJoinColumns = {@JoinColumn(name = "specialty_id")})
     private List<Specialty> specialties;
 
-    public void addSpecialty(Specialty specialty) {
-        specialties.add(specialty);
+    public void addSpecialties(List<Specialty> specialties) {
+        this.specialties.addAll(specialties);
     }
-    public void removeSpecialty(Specialty specialty) {
-        specialties.remove(specialty);
+    public void removeSpecialties(List<Specialty> specialties) {
+        for (Specialty specialty: specialties)
+            this.specialties.remove(specialty);
     }
 
 }

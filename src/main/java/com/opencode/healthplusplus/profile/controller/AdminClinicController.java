@@ -116,13 +116,13 @@ public class AdminClinicController {
     @Operation(summary = "Add Specialty")
     @PatchMapping("{adminClinicId}/addSpecialty")
     public AdminClinicResource assignSpecialtyToDoctor(@PathVariable Long adminClinicId, @RequestBody UpdateAdminClinicResource request) {
-        return mapper.toResource(adminClinicService.addSpecialty(adminClinicId, request.getSpecialtyId()));
+        return mapper.toResource(adminClinicService.addSpecialties(adminClinicId, request.getSpecialtiesId()));
     }
 
     @Operation(summary = "Remove Specialty")
     @PatchMapping("{adminClinicId}/removeSpecialty")
     public AdminClinicResource removeSpecialtyToDoctor(@PathVariable Long adminClinicId, @RequestBody UpdateAdminClinicResource request) {
-        return mapper.toResource(adminClinicService.removeSpecialty(adminClinicId, request.getSpecialtyId()));
+        return mapper.toResource(adminClinicService.removeSpecialties(adminClinicId, request.getSpecialtiesId()));
     }
 
 
