@@ -25,11 +25,12 @@ public class AdminClinic extends User{
             inverseJoinColumns = {@JoinColumn(name = "specialty_id")})
     private List<Specialty> specialties;
 
-    public void addSpecialty(Specialty specialty) {
-        specialties.add(specialty);
+    public void addSpecialties(List<Specialty> specialties) {
+        this.specialties.addAll(specialties);
     }
-    public void removeSpecialty(Specialty specialty) {
-        specialties.remove(specialty);
+    public void removeSpecialties(List<Specialty> specialties) {
+        for (Specialty specialty: specialties)
+            this.specialties.remove(specialty);
     }
 
 }
