@@ -1,8 +1,5 @@
 package com.opencode.healthplusplus.meeting.resource;
 
-import com.opencode.healthplusplus.meeting.domain.entity.AppointmentDetails;
-import com.opencode.healthplusplus.profile.domain.entity.Doctor;
-import com.opencode.healthplusplus.profile.domain.entity.Patient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +9,7 @@ import java.util.Date;
 @Setter
 public class CreateAppointmentResource {
     private Date startAt;
-    private Patient patient;
-    private Doctor doctor;
-    private AppointmentDetails appointmentDetails;
+    private Long patientId;
+    private Long doctorId;
+    private Long appointmentDetailsId;
 }

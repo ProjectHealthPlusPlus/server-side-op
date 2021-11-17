@@ -93,7 +93,7 @@ public class AdminClinicServiceImpl implements AdminClinicService {
     @Override
     public AdminClinic addSpecialty(Long adminClinicId, Long specialtyId) {
 
-        AdminClinic adminClinic = adminClinicRepository.findById(specialtyId)
+        AdminClinic adminClinic = adminClinicRepository.findById(adminClinicId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, adminClinicId));
 
         Specialty specialty = specialtyRepository.findById(specialtyId)
@@ -107,7 +107,7 @@ public class AdminClinicServiceImpl implements AdminClinicService {
     @Override
     public AdminClinic removeSpecialty(Long adminClinicId, Long specialtyId) {
 
-        AdminClinic adminClinic = adminClinicRepository.findById(specialtyId)
+        AdminClinic adminClinic = adminClinicRepository.findById(adminClinicId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, adminClinicId));
 
         Specialty specialty = specialtyRepository.findById(specialtyId)

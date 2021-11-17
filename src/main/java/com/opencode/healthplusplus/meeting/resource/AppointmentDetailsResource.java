@@ -11,9 +11,9 @@ import java.util.Date;
 @Setter
 public class AppointmentDetailsResource {
     private Long id;
-    private Date patientStartAt;
-    private Date doctorStartAt;
-    private Date patientEndAt;
-    private Date doctorEndAt;
+    private Date patientStartedAt;
+    private Date doctorStartedAt;
+    private Date patientEndedAt;
+    private Date doctorEndedAt;
     private Diagnostic diagnostic;
 }

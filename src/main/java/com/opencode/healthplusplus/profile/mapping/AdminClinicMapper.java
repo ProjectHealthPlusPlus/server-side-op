@@ -58,6 +58,7 @@ public class AdminClinicMapper implements Serializable {
     }
 
     public AdminClinic toModel(UpdateAdminClinicResource resource) {
+
         return mapper.map(resource, AdminClinic.class);
     }
 

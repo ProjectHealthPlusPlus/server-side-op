@@ -1,7 +1,10 @@
 package com.opencode.healthplusplus.profile.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.opencode.healthplusplus.meeting.domain.entity.Appointment;
 import com.opencode.healthplusplus.meeting.domain.entity.Clinic;
 import lombok.*;
 
@@ -16,8 +19,8 @@ import java.util.List;
 @With
 @Entity
 @Table(name = "doctors")
-//@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class)
-public class Doctor extends User implements Serializable {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Doctor extends User {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "doctors_specialties",
@@ -30,6 +33,9 @@ public class Doctor extends User implements Serializable {
             mappedBy = "doctors")
     private List<Clinic> clinics;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<Appointment> appointments;
 
 
     public void addClinics(List<Clinic> clinics) {
