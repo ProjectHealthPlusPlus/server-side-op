@@ -58,6 +58,11 @@ public class ClinicServiceImpl implements ClinicService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
+        Clinic clinicWithLocation = clinicRepository.findByLocation_Id(request.getLocation().getId());
+
+        if(clinicWithLocation != null)
+            throw new ResourceValidationException(ENTITY, "A Clinic with the same Location exit");
+
         return clinicRepository.save(request);
     }
 

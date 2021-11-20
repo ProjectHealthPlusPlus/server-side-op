@@ -1,10 +1,8 @@
 package com.opencode.healthplusplus.meeting.resource;
 
-import com.opencode.healthplusplus.meeting.domain.entity.Location;
-import com.opencode.healthplusplus.profile.domain.entity.AdminClinic;
-import com.opencode.healthplusplus.profile.resource.UserResource;
-import com.opencode.healthplusplus.profile.domain.entity.Doctor;
-import com.opencode.healthplusplus.health.domain.entity.MedicalHistory;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.opencode.healthplusplus.profile.resource.DoctorResource;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +10,11 @@ import java.util.List;
 
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class ClinicResource {
     private Long id;
-    private Location location;
-    private List<Doctor> doctors;
+    private LocationResource location;
+    private List<DoctorResource> doctors;
 }

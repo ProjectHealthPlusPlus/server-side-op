@@ -9,6 +9,8 @@ import com.opencode.healthplusplus.profile.resource.CreateDoctorResource;
 import com.opencode.healthplusplus.profile.resource.DoctorResource;
 import com.opencode.healthplusplus.profile.resource.UpdateDoctorResource;
 import com.opencode.healthplusplus.shared.mapping.EnhanceModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -44,7 +46,12 @@ public class DoctorMapper implements Serializable {
         List<Specialty> specialties = specialtyRepository.findAllById(resource.getSpecialtiesId());
         List<Clinic> clinics = clinicRepository.findAllById(resource.getClinicsId());
 
-        Doctor doctor = mapper.map(resource, Doctor.class);
+        Doctor doctor = new Doctor();
+
+        doctor.setDni(resource.getDni());
+        doctor.setName(resource.getName());
+        doctor.setLastName(resource.getLastName());
+        doctor.setAge(resource.getAge());
 
         doctor.setSpecialties(specialties);
         doctor.setClinics(clinics);
