@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ClinicLocationServiceTStepDefinitions {
+public class LocationServiceTStepDefinitions {
 
     @Autowired
     private TestRestTemplate testRestTemplate;

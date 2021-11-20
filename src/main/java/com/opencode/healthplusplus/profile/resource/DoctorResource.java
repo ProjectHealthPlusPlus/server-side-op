@@ -1,7 +1,8 @@
 package com.opencode.healthplusplus.profile.resource;
 
-import com.opencode.healthplusplus.meeting.domain.entity.Clinic;
-import com.opencode.healthplusplus.profile.domain.entity.Specialty;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.opencode.healthplusplus.meeting.resource.ClinicResource;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,10 @@ import java.util.List;
 
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class DoctorResource extends UserResource {
-    private List<Specialty> specialties;
-    private List<Clinic> clinics;
+    private List<SpecialtyResource> specialties;
+    private List<ClinicResource> clinics;
 }
