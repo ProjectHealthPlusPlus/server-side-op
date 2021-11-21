@@ -8,9 +8,7 @@ import com.opencode.healthplusplus.profile.domain.persistence.SpecialtyRepositor
 import com.opencode.healthplusplus.profile.resource.CreateDoctorResource;
 import com.opencode.healthplusplus.profile.resource.DoctorResource;
 import com.opencode.healthplusplus.profile.resource.UpdateDoctorResource;
-import com.opencode.healthplusplus.shared.mapping.EnhanceModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
+import com.opencode.healthplusplus.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,7 +20,7 @@ import java.util.List;
 public class DoctorMapper implements Serializable {
 
     @Autowired
-    private EnhanceModelMapper mapper;
+    private EnhancedModelMapper mapper;
 
     @Autowired
     private SpecialtyRepository specialtyRepository;

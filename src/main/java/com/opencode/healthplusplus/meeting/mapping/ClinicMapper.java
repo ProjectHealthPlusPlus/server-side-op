@@ -9,7 +9,7 @@ import com.opencode.healthplusplus.meeting.resource.UpdateClinicResource;
 import com.opencode.healthplusplus.profile.domain.entity.Doctor;
 import com.opencode.healthplusplus.profile.domain.persistence.DoctorRepository;
 import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
-import com.opencode.healthplusplus.shared.mapping.EnhanceModelMapper;
+import com.opencode.healthplusplus.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,7 +21,7 @@ import java.util.List;
 public class ClinicMapper implements Serializable {
 
     @Autowired
-    private EnhanceModelMapper mapper;
+    private EnhancedModelMapper mapper;
 
     @Autowired
     private LocationRepository locationRepository;
