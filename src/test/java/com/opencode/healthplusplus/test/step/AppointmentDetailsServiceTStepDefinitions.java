@@ -38,7 +38,7 @@ public class AppointmentDetailsServiceTStepDefinitions {
     private String endPointPath;
     private ResponseEntity<String> responseEntity;
 
-    private Diagnostic diagnostic;
+    private final Diagnostic diagnostic = new Diagnostic();
 
     @Given("The AppointmentDetails Endpoint {string} is available")
     public void theAppointmentDetailsEndpointIsAvailable(String endPointPath) {
@@ -50,8 +50,6 @@ public class AppointmentDetailsServiceTStepDefinitions {
         List<Map<String, String>> rows = table.asMaps(String.class, String.class);
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-        diagnostic = new Diagnostic();
 
         for (Map<String, String> columns : rows) {
             diagnostic.setId(Long.parseLong(columns.get("Id")));
@@ -86,7 +84,7 @@ public class AppointmentDetailsServiceTStepDefinitions {
 
     @And("A AppointmentDetails Resource with values {string}, {string}, {string}, {string}, {int} is included in Response Body")
     public void aAppointmentDetailsResourceWithValuesIsIncludedInResponseBody(String patientStartedAt, String doctorStartedAt, String patientEndedAt, String doctorEndedAt, int diagnosticId) throws ParseException {
-        AppointmentDetailsResource expectedResource = new AppointmentDetailsResource();
+        AppointmentDetailsResource expectedResource = new AppointmentDetailsResource().withDiagnostic(diagnostic);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
         expectedResource.setPatientStartedAt(format.parse(patientStartedAt));

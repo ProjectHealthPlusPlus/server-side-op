@@ -4,7 +4,7 @@ import com.opencode.healthplusplus.meeting.domain.entity.Location;
 import com.opencode.healthplusplus.meeting.resource.LocationResource;
 import com.opencode.healthplusplus.meeting.resource.CreateLocationResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateLocationResource;
-import com.opencode.healthplusplus.shared.mapping.EnhanceModelMapper;
+import com.opencode.healthplusplus.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,7 +16,7 @@ import java.util.List;
 public class LocationMapper implements Serializable {
 
     @Autowired
-    private EnhanceModelMapper mapper;
+    private EnhancedModelMapper mapper;
 
     // Object Mapping
 

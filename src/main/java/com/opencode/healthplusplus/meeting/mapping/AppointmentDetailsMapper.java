@@ -7,7 +7,7 @@ import com.opencode.healthplusplus.meeting.resource.AppointmentDetailsResource;
 import com.opencode.healthplusplus.meeting.resource.CreateAppointmentDetailsResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateAppointmentDetailsResource;
 import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
-import com.opencode.healthplusplus.shared.mapping.EnhanceModelMapper;
+import com.opencode.healthplusplus.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class AppointmentDetailsMapper {
     @Autowired
-    private EnhanceModelMapper mapper;
+    private EnhancedModelMapper mapper;
 
     @Autowired
     private DiagnosticRepository diagnosticRepository;
