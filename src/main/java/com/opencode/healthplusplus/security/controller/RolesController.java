@@ -3,6 +3,7 @@ package com.opencode.healthplusplus.security.controller;
 import com.opencode.healthplusplus.security.domain.service.RoleService;
 import com.opencode.healthplusplus.security.mapping.RoleMapper;
 import com.opencode.healthplusplus.security.resource.RoleResource;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Roles")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/roles")

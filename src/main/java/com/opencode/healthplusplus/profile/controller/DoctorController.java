@@ -1,6 +1,5 @@
 package com.opencode.healthplusplus.profile.controller;
 
-import com.opencode.healthplusplus.profile.domain.entity.Doctor;
 import com.opencode.healthplusplus.profile.domain.service.DoctorService;
 import com.opencode.healthplusplus.profile.mapping.DoctorMapper;
 import com.opencode.healthplusplus.profile.resource.CreateDoctorResource;
