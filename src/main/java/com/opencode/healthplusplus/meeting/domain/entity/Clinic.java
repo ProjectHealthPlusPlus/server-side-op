@@ -1,12 +1,13 @@
 package com.opencode.healthplusplus.meeting.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.opencode.healthplusplus.health.domain.entity.MedicalHistory;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.opencode.healthplusplus.profile.domain.entity.Doctor;
-import com.opencode.healthplusplus.profile.domain.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -14,23 +15,33 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @With
-@Entity(name = "clinics")
-public class Clinic extends User {
+@Entity
+@Table(name = "clinics")
+public class Clinic implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "clinic_locations_id", nullable = false)
+    @JoinColumn(name = "locations_id", nullable = false)
     @JsonIgnore
-    private ClinicLocation clinicLocation;
+    private Location location;
 
     @ManyToMany(fetch = FetchType.LAZY
             , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "clinic_doctors",
+    @JoinTable(name = "clinics_doctors",
             joinColumns = {@JoinColumn(name = "clinic_id")},
             inverseJoinColumns = {@JoinColumn(name = "doctor_id")})
+    @JsonIgnore
     private List<Doctor> doctors;
 
-    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<MedicalHistory> medicalHistories;
-
-
+    public void addDoctors(List<Doctor> doctors) {
+        this.doctors.addAll(doctors);
+    }
+    public void removeDoctors(List<Doctor> doctors) {
+        for (Doctor doctor: doctors)
+            this.doctors.remove(doctor);
+    }
+    
 }

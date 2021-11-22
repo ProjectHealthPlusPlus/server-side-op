@@ -5,6 +5,7 @@ import com.opencode.healthplusplus.health.mapping.DiagnosticMapper;
 import com.opencode.healthplusplus.health.resource.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -116,6 +117,16 @@ public class DiagnosticController {
 
     @Tag(name = "Clinics")
     @Operation(summary = "Create a diagnostic", description = "Create A Diagnostic.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"description\": \"The patient do not have any problem\", " +
+                                    "\"specialtyId\": 1, " +
+                                    "\"publishDate\": \"2021-20-17T06:51:19.661Z\"}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -130,13 +141,23 @@ public class DiagnosticController {
                     }
             )
     })
-    @PostMapping("clinics/{clinicId}/medicalHistories/{medicalHistoryId}/diagnostics/{diagnosticId}")
+    @PostMapping("clinics/{clinicId}/medicalHistories/{medicalHistoryId}/diagnostics/")
     public DiagnosticResource createDiagnostic(@PathVariable Long medicalHistoryId, @RequestBody CreateDiagnosticResource request) {
         return mapper.toResource(diagnosticService.create(medicalHistoryId, mapper.toModel(request)));
     }
 
     @Tag(name = "Clinics")
     @Operation(summary = "Edit a diagnostic", description = "Edit A Diagnostic By Given An Id.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"description\": \"The patient have some problems\", " +
+                                    "\"specialtyId\": 2, " +
+                                    "\"publishDate\": \"2021-20-17T06:51:19.661Z\"}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",

@@ -1,10 +1,17 @@
 package com.opencode.healthplusplus.meeting.mapping;
 
 import com.opencode.healthplusplus.meeting.domain.entity.Appointment;
+import com.opencode.healthplusplus.meeting.domain.entity.AppointmentDetails;
+import com.opencode.healthplusplus.meeting.domain.persistence.AppointmentDetailsRepository;
 import com.opencode.healthplusplus.meeting.resource.AppointmentResource;
 import com.opencode.healthplusplus.meeting.resource.CreateAppointmentResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateAppointmentResource;
-import com.opencode.healthplusplus.shared.mapping.EnhanceModelMapper;
+import com.opencode.healthplusplus.profile.domain.entity.Doctor;
+import com.opencode.healthplusplus.profile.domain.entity.Patient;
+import com.opencode.healthplusplus.profile.domain.persistence.DoctorRepository;
+import com.opencode.healthplusplus.profile.domain.persistence.PatientRepository;
+import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
+import com.opencode.healthplusplus.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,7 +21,16 @@ import java.util.List;
 
 public class AppointmentMapper {
     @Autowired
-    private EnhanceModelMapper mapper;
+    private EnhancedModelMapper mapper;
+
+    @Autowired
+    private PatientRepository patientRepository;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
+
+    @Autowired
+    private AppointmentDetailsRepository appointmentDetailsRepository;
 
     // Object Mapping
 
@@ -30,7 +46,24 @@ public class AppointmentMapper {
     }
 
     public Appointment toModel(CreateAppointmentResource resource) {
-        return mapper.map(resource, Appointment.class);
+
+        Patient patient = patientRepository.findById(resource.getPatientId())
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", resource.getPatientId()));
+
+        Doctor doctor = doctorRepository.findById(resource.getDoctorId())
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", resource.getDoctorId()));
+
+        AppointmentDetails appointmentDetails = appointmentDetailsRepository.findById(resource.getAppointmentDetailsId())
+                .orElse(null);
+
+        Appointment appointment = new Appointment();
+
+        appointment.setAppointmentDetails(appointmentDetails);
+        appointment.setDoctor(doctor);
+        appointment.setPatient(patient);
+        appointment.setStartAt(resource.getStartAt());
+
+        return appointment;
     }
 
     public Appointment toModel(UpdateAppointmentResource resource) {

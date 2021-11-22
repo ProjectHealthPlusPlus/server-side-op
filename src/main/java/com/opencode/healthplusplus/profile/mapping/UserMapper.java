@@ -4,7 +4,7 @@ import com.opencode.healthplusplus.profile.domain.entity.User;
 import com.opencode.healthplusplus.profile.resource.CreateUserResource;
 import com.opencode.healthplusplus.profile.resource.UpdateUserResource;
 import com.opencode.healthplusplus.profile.resource.UserResource;
-import com.opencode.healthplusplus.shared.mapping.EnhanceModelMapper;
+import com.opencode.healthplusplus.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,7 +16,7 @@ import java.util.List;
 public class UserMapper implements Serializable {
 
     @Autowired
-    private EnhanceModelMapper mapper;
+    private EnhancedModelMapper mapper;
 
     // Object Mapping
 

@@ -1,6 +1,5 @@
 package com.opencode.healthplusplus.health.resource;
 
-import com.opencode.healthplusplus.profile.domain.entity.Specialty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +17,5 @@ public class UpdateDiagnosticResource {
     @NotBlank
     private String description;
 
-    private Specialty specialty;
+    private Long specialtyId;
 }

@@ -1,10 +1,13 @@
 package com.opencode.healthplusplus.meeting.mapping;
 
+import com.opencode.healthplusplus.health.domain.entity.Diagnostic;
+import com.opencode.healthplusplus.health.domain.persistence.DiagnosticRepository;
 import com.opencode.healthplusplus.meeting.domain.entity.AppointmentDetails;
 import com.opencode.healthplusplus.meeting.resource.AppointmentDetailsResource;
 import com.opencode.healthplusplus.meeting.resource.CreateAppointmentDetailsResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateAppointmentDetailsResource;
-import com.opencode.healthplusplus.shared.mapping.EnhanceModelMapper;
+import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
+import com.opencode.healthplusplus.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,7 +17,10 @@ import java.util.List;
 
 public class AppointmentDetailsMapper {
     @Autowired
-    private EnhanceModelMapper mapper;
+    private EnhancedModelMapper mapper;
+
+    @Autowired
+    private DiagnosticRepository diagnosticRepository;
 
     // Object Mapping
 
@@ -30,7 +36,19 @@ public class AppointmentDetailsMapper {
     }
 
     public AppointmentDetails toModel(CreateAppointmentDetailsResource resource) {
-        return mapper.map(resource, AppointmentDetails.class);
+
+        Diagnostic diagnostic = diagnosticRepository.findById(resource.getDiagnosticId())
+                .orElseThrow(() -> new ResourceNotFoundException("Diagnostic", resource.getDiagnosticId()));
+
+        AppointmentDetails appointmentDetails = new AppointmentDetails();
+
+        appointmentDetails.setDiagnostic(diagnostic);
+        appointmentDetails.setPatientStartedAt(resource.getPatientStartedAt());
+        appointmentDetails.setPatientEndedAt(resource.getPatientEndedAt());
+        appointmentDetails.setDoctorStartedAt(resource.getDoctorStartedAt());
+        appointmentDetails.setDoctorEndedAt(resource.getDoctorEndedAt());
+
+        return appointmentDetails;
     }
 
     public AppointmentDetails toModel(UpdateAppointmentDetailsResource resource) {

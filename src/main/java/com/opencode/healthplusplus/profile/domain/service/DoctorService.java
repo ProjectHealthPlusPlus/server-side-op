@@ -13,5 +13,9 @@ public interface DoctorService {
     Doctor getById(Long doctorId);
     Doctor create(Doctor request);
     Doctor update(Long doctorId, Doctor request);
+    Doctor addClinics(Long doctorId, List<Long> clinicsId);
+    Doctor removeClinics(Long doctorId, List<Long> clinicsId);
+    Doctor addSpecialties(Long doctorId, List<Long> specialtiesId);
+    Doctor removeSpecialties(Long doctorId, List<Long> specialtiesId);
     ResponseEntity<?> delete(Long doctorId);
 }

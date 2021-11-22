@@ -7,6 +7,7 @@ import com.opencode.healthplusplus.meeting.resource.CreateClinicResource;
 import com.opencode.healthplusplus.meeting.resource.UpdateClinicResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -72,6 +73,15 @@ public class ClinicController {
 
 
     @Operation(summary = "Create a clinic", description = "Create A Clinic.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"locationId\": 1, " +
+                                    "\"doctorsId\": [ 1, 2 ]}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -80,7 +90,7 @@ public class ClinicController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = CreateClinicResource.class
+                                            implementation = ClinicResource.class
                                     )
                             )
                     }
@@ -93,6 +103,15 @@ public class ClinicController {
 
 
     @Operation(summary = "Edit a clinic", description = "Edit A Clinic By Given An Id.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"locationId\": 2, " +
+                                    "\"doctorsId\": [ 2 ]}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -101,7 +120,7 @@ public class ClinicController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = UpdateClinicResource.class
+                                            implementation = ClinicResource.class
                                     )
                             )
                     }
@@ -110,6 +129,49 @@ public class ClinicController {
     @PutMapping("{clinicId}")
     public ClinicResource updateClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
         return mapper.toResource(clinicService.update(clinicId, mapper.toModel(request)));
+    }
+
+
+    @Operation(summary = "Change Location")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"locationId\": 2}")
+                    }
+            )
+    )
+    @PatchMapping("{clinicId}/changeLocation")
+    public ClinicResource changeLocationOfClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.changeLocation(clinicId, request.getLocationId()));
+    }
+
+    @Operation(summary = "Add Doctors")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"doctorsId\": [ 1, 3 ]}")
+                    }
+            )
+    )
+    @PatchMapping("{clinicId}/addDoctors")
+    public ClinicResource assignDoctorsToClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.addDoctors(clinicId, request.getDoctorsId()));
+    }
+
+    @Operation(summary = "Remove Doctors")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"doctorsId\": [ 2 ]}")
+                    }
+            )
+    )
+    @PatchMapping("{clinicId}/removeDoctors")
+    public ClinicResource removeDoctorsToClinic(@PathVariable Long clinicId, @RequestBody UpdateClinicResource request) {
+        return mapper.toResource(clinicService.removeDoctors(clinicId, request.getDoctorsId()));
     }
 
 

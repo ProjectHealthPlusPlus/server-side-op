@@ -6,6 +6,7 @@ import com.opencode.healthplusplus.profile.domain.entity.Patient;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -15,7 +16,7 @@ import java.util.Date;
 @With
 @Entity
 @Table(name = "appointments")
-public class Appointment {
+public class Appointment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

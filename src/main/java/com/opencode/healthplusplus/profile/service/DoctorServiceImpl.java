@@ -1,7 +1,11 @@
 package com.opencode.healthplusplus.profile.service;
 
+import com.opencode.healthplusplus.meeting.domain.entity.Clinic;
+import com.opencode.healthplusplus.meeting.domain.persistence.ClinicRepository;
 import com.opencode.healthplusplus.profile.domain.entity.Doctor;
+import com.opencode.healthplusplus.profile.domain.entity.Specialty;
 import com.opencode.healthplusplus.profile.domain.persistence.DoctorRepository;
+import com.opencode.healthplusplus.profile.domain.persistence.SpecialtyRepository;
 import com.opencode.healthplusplus.profile.domain.service.DoctorService;
 import com.opencode.healthplusplus.shared.exception.ResourceNotFoundException;
 import com.opencode.healthplusplus.shared.exception.ResourceValidationException;
@@ -20,10 +24,14 @@ public class DoctorServiceImpl implements DoctorService {
 
     private static final String ENTITY = "Doctor";
     private final DoctorRepository doctorRepository;
+    private final ClinicRepository clinicRepository;
+    private final SpecialtyRepository specialtyRepository;
     private final Validator validator;
 
-    public DoctorServiceImpl(DoctorRepository doctorRepository, Validator validator) {
+    public DoctorServiceImpl(DoctorRepository doctorRepository, ClinicRepository clinicRepository, SpecialtyRepository specialtyRepository, Validator validator) {
         this.doctorRepository = doctorRepository;
+        this.clinicRepository = clinicRepository;
+        this.specialtyRepository = specialtyRepository;
         this.validator = validator;
     }
 
@@ -51,6 +59,11 @@ public class DoctorServiceImpl implements DoctorService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
+        Doctor doctorWithDni = doctorRepository.findByDni(request.getDni());
+
+        if(doctorWithDni != null)
+            throw new ResourceValidationException(ENTITY, "A Doctor with the same dni exist");
+
         return doctorRepository.save(request);
     }
 
@@ -61,11 +74,70 @@ public class DoctorServiceImpl implements DoctorService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        return doctorRepository.findById(doctorId).map(doctor ->
-                        doctorRepository.save(
-                                doctor.withSpecialties(request.getSpecialties())
-                                        .withClinics(request.getClinics())))
+        Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
+
+        doctor.setId(doctorId);
+        doctor.setClinics(request.getClinics());
+        doctor.setSpecialties(request.getSpecialties());
+        doctor.setAge(request.getAge());
+        doctor.setName(request.getName());
+        doctor.setLastName(request.getLastName());
+        doctor.setDni(request.getDni());
+
+        return  doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Doctor addClinics(Long doctorId, List<Long> clinicsId) {
+
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
+
+        List<Clinic> clinics = clinicRepository.findAllById(clinicsId);
+
+        doctor.addClinics(clinics);
+
+        return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Doctor removeClinics(Long doctorId, List<Long> clinicsId) {
+
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
+
+        List<Clinic> clinics = clinicRepository.findAllById(clinicsId);
+
+        doctor.removeClinics(clinics);
+
+        return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Doctor addSpecialties(Long doctorId, List<Long> specialtiesId) {
+
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
+
+        List<Specialty> specialties = specialtyRepository.findAllById(specialtiesId);
+
+        doctor.addSpecialties(specialties);
+
+        return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Doctor removeSpecialties(Long doctorId, List<Long> specialtiesId) {
+
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
+
+        List<Specialty> specialties = specialtyRepository.findAllById(specialtiesId);
+
+        doctor.removeSpecialties(specialties);
+
+        return doctorRepository.save(doctor);
     }
 
     @Override

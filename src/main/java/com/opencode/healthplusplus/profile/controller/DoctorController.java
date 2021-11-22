@@ -7,6 +7,7 @@ import com.opencode.healthplusplus.profile.resource.DoctorResource;
 import com.opencode.healthplusplus.profile.resource.UpdateDoctorResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -72,6 +73,19 @@ public class DoctorController {
 
 
     @Operation(summary = "Create a doctor", description = "Create A Doctor.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"dni\": 87654321, " +
+                                    "\"name\": \"Diego\", " +
+                                    "\"lastName\": \"Henriquez\", " +
+                                    "\"age\": 20, " +
+                                    "\"specialtiesId\": [ 1 ], " +
+                                    "\"clinicsId\": [ 1 ]}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -80,7 +94,7 @@ public class DoctorController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = CreateDoctorResource.class
+                                            implementation = DoctorResource.class
                                     )
                             )
                     }
@@ -93,6 +107,19 @@ public class DoctorController {
 
 
     @Operation(summary = "Edit a doctor", description = "Edit A Doctor By Given An Id.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"dni\": 87654321, " +
+                                    "\"name\": \"Diego\", " +
+                                    "\"lastName\": \"Henriquez\", " +
+                                    "\"age\": 21, " +
+                                    "\"specialtiesId\": [ 2 ], " +
+                                    "\"clinicsId\": [ 2 ]}")
+                    }
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -101,7 +128,7 @@ public class DoctorController {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(
-                                            implementation = UpdateDoctorResource.class
+                                            implementation = DoctorResource.class
                                     )
                             )
                     }
@@ -113,11 +140,69 @@ public class DoctorController {
     }
 
 
+    @Operation(summary = "Add clinics")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"clinicsId\": [ 1 ]}")
+                    }
+            )
+    )
+    @PatchMapping("{doctorId}/addClinics")
+    public DoctorResource assignClinicsToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
+        return mapper.toResource(doctorService.addClinics(doctorId, request.getClinicsId()));
+    }
+
+    @Operation(summary = "Remove clinics")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"clinicsId\": [ 1 ]}")
+                    }
+            )
+    )
+    @PatchMapping("{doctorId}/removeClinics")
+    public DoctorResource removeClinicsToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
+        return mapper.toResource(doctorService.removeClinics(doctorId, request.getClinicsId()));
+    }
+
+    @Operation(summary = "Add Specialties")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"specialtiesId\": [ 3, 4 ]}")
+                    }
+            )
+    )
+    @PatchMapping("{doctorId}/addSpecialties")
+    public DoctorResource assignSpecialtiesToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
+        return mapper.toResource(doctorService.addSpecialties(doctorId, request.getSpecialtiesId()));
+    }
+
+    @Operation(summary = "Remove Specialties")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(value = "{\"specialtiesId\": [ 4 ]}")
+                    }
+            )
+    )
+    @PatchMapping("{doctorId}/removeSpecialties")
+    public DoctorResource removeSpecialtiesToDoctor(@PathVariable Long doctorId, @RequestBody UpdateDoctorResource request) {
+        return mapper.toResource(doctorService.removeSpecialties(doctorId, request.getSpecialtiesId()));
+    }
+
+
     @Operation(summary = "Delete a doctor", description = "Delete A Doctor By Given An Id.")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Doctor deleted"
+                    description = "Doctor deleted",
+                    content = @Content(mediaType = "application/json")
             )
     })
     @DeleteMapping("{doctorId}")

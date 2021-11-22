@@ -33,7 +33,6 @@ public class Diagnostic extends AuditModel {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "specialty_id", nullable = false)
-    @JsonIgnore
     private Specialty specialty;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

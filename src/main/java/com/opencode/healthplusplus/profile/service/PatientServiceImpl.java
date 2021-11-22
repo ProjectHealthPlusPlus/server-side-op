@@ -51,6 +51,11 @@ public class PatientServiceImpl implements PatientService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
+        Patient patientWithDni = patientRepository.findByDni(request.getDni());
+
+        if(patientWithDni != null)
+            throw new ResourceValidationException(ENTITY, "A Patient with the same dni exist");
+
         return patientRepository.save(request);
     }
 
@@ -61,10 +66,17 @@ public class PatientServiceImpl implements PatientService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        return patientRepository.findById(patientId).map(patient ->
-                        patientRepository.save(
-                                patient.withAddress(request.getAddress())))
-                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, patientId));
+
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY,patientId));
+        patient.setAddress(request.getAddress());
+        patient.setAge(request.getAge());
+        patient.setDni(request.getDni());
+        patient.setName(request.getName());
+        patient.setLastName(request.getLastName());
+
+        return patientRepository.save(patient);
+
     }
 
     @Override

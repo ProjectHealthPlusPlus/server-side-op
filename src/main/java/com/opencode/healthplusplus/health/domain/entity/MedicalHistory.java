@@ -7,6 +7,7 @@ import com.opencode.healthplusplus.shared.domain.model.AuditModel;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -21,7 +22,7 @@ public class MedicalHistory extends AuditModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "patient_id", nullable = false)
     @JsonIgnore
     private Patient patient;

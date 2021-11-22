@@ -63,10 +63,10 @@ public class AppointmentDetailsServiceImpl implements AppointmentDetailsService 
 
         return appointmentDetailsRepository.findById(appointmentDetailsId).map(appointmentDetails ->
                         appointmentDetailsRepository.save(
-                                appointmentDetails.withPatientStartAt(request.getPatientStartAt())
-                                        .withDoctorStartAt(request.getDoctorStartAt())
-                                        .withPatientEndAt(request.getPatientEndAt())
-                                        .withDoctorEndAt(request.getDoctorEndAt())
+                                appointmentDetails.withPatientStartedAt(request.getPatientStartedAt())
+                                        .withDoctorStartedAt(request.getDoctorStartedAt())
+                                        .withPatientEndedAt(request.getPatientEndedAt())
+                                        .withDoctorEndedAt(request.getDoctorEndedAt())
                                         .withDiagnostic(request.getDiagnostic())))
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, appointmentDetailsId));
     }

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -13,8 +14,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @With
 @Entity
-@Table(name = "clinic_locations")
-public class ClinicLocation {
+@Table(name = "locations")
+public class Location implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +28,7 @@ public class ClinicLocation {
     @NotNull
     @NotBlank
     @Size(max = 20)
-    private String capitalCity;
+    private String city;
 
     @NotNull
     @NotBlank
